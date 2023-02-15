@@ -1,0 +1,11 @@
+﻿global using System.ComponentModel.DataAnnotations;
+global using System.Net;
+global using Microsoft.EntityFrameworkCore;
+global using Infrastructure.CommonValues;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Infrastructure.Identity;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Authorization;
+global using AutoMapper;
+global using Microsoft.Extensions.Options;
+global using Microsoft.OpenApi.Models;

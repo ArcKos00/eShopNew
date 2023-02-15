@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+    identityserver:
+        container_name: lde.identity
+        build:
+            context: .
+            dockerfile: IdentityServer/IdentityServer/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:5002
+            - MvcUrl=http://www.alevelwebsite.com:5001
+            - CatalogApi=http://www.alevelwebsite.com:5000
+        ports:
+            - 5002:5002
+
+    catalog.api:
+        container_name: lde.catalog.api
+        build:
+            context: .
+            dockerfile: Catalog/Catalog.Host/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:5000
+            - ConnectionString=server=www.alevelwebsite.com;port=5433;database=catalog;uid=postgres;password=postgres;
+            - Authorization__Authority=http://www.alevelwebsite.com:5002
+            - BasePath=http://www.alevelwebsite.com:5000
+        depends_on:
+            - postgres
+            - identityserver
+        ports:
+            - 5000:5000
+
+    web.mvc:
+        container_name: lde.web.mvc
+        build:
+            context: .
+            dockerfile: Web/MVC/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:5001
+            - CatalogUrl=http://www.alevelwebsite.com:5000/api/v1/CatalogBff
+            - Authorization__Authority=http://www.alevelwebsite.com:5002
+            - IdentityUrl=http://www.alevelwebsite.com:5002
+            - CallBackUrl=http://www.alevelwebsite.com:5001/
+            - RedirectUrl=http://www.alevelwebsite.com:5001/signin-oidc/
+        depends_on:
+            - identityserver
+            - catalog.api
+        ports:
+            - 5001:5001
+
+    postgres:
+        container_name: lde.postgres
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - 5433:5432
+
+    pgAdmin:
+        container_name: lde.pgAdmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: user@domain.com
+            PGADMIN_DEFAULT_PASSWORD: postgres
+        depends_on:
+            - postgres
+        ports:
+            - 8001:80
+
+    nginx:
+        container_name: lde.nginx
+        image: nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./Proxy/gateway/nginx/conf.d:/etc/nginx/conf.d
+            - ./Proxy/assets:/var/www/assets
+
+    redis:
+        container_name: lde.redis
+        image: redis
+        ports:
+            - 6380:6379
+
+networks:
+    default:    
+        driver: bridge
+        internal: false
+        attachable: true
+        ipam:
+            driver: default
+            config:
+                - subnet: 192.168.0.0/24
+                  gateway: 192.168.0.1
