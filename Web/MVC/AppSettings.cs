@@ -6,5 +6,6 @@
         public int SessionCookieLifetimeMinutes { get; set; }
         public string CallBackUrl { get; set; } = null!;
         public string IdentityUrl { get; set; } = null!;
+        public string RedirectUrl { get; set; } = null!;
     }
 }

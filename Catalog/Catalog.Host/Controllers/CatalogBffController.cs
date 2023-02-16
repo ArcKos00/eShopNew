@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Enums;
 using Catalog.Host.Models.Request;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services;
@@ -12,6 +13,7 @@ namespace Catalog.Host.Controllers
 {
     [ApiController]
     [Scope("catalog.api.catalogbff")]
+    [AllowAnonymous]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase
@@ -46,11 +48,8 @@ namespace Catalog.Host.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(PaginatedItemsResponse<Artefact>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items(PaginatedItemRequest request)
+        public async Task<IActionResult> Items(PaginatedItemRequest<TypeFilter> request)
         {
-            Console.WriteLine(request.PageIndex);
-            Console.WriteLine(request.PageSize);
-            Console.WriteLine(request.Filter);
             var result = await _service.GetPage(request.PageIndex, request.PageSize, request.Filter);
             return Ok(result);
         }

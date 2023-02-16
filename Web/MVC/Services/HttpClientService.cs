@@ -1,4 +1,5 @@
-﻿using MVC.Services.Interfaces;
+﻿using Infrastructure.Identity;
+using MVC.Services.Interfaces;
 
 namespace MVC.Services
 {
@@ -18,7 +19,8 @@ namespace MVC.Services
         {
             var client = _clientFactory.CreateClient();
 
-            var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            var token = await _httpContextAccessor.HttpContext.GetTokenAsync(AuthScheme.Site,"access_token");
+
             if(!string.IsNullOrEmpty(token))
             {
                 client.SetBearerToken(token);

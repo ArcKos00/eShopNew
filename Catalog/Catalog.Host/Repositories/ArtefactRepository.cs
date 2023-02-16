@@ -57,17 +57,17 @@ namespace Catalog.Host.Repositories
 
             if (anomalyFilter.HasValue)
             {
-                query.Where(w => w.AnomalyId == anomalyFilter.Value);
+                query = query.Where(w => w.AnomalyId == anomalyFilter.Value);
             }
 
             if (abnormalFilter.HasValue)
             {
-                query.Where(w => w.AbnormalTypeId == abnormalFilter.Value);
+                query = query.Where(w => w.AbnormalTypeId == abnormalFilter.Value);
             }
 
             if (meetsFilter.HasValue)
             {
-                query.Where(w => w.FrequencyId == meetsFilter.Value);
+                query = query.Where(w => w.FrequencyId == meetsFilter.Value);
             }
 
             var totalItems = await query.LongCountAsync();

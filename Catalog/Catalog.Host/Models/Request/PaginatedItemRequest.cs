@@ -1,8 +1,7 @@
-﻿using Catalog.Host.Models.Enums;
-
-namespace Catalog.Host.Models.Request
+﻿namespace Catalog.Host.Models.Request
 {
-    public class PaginatedItemRequest
+    public class PaginatedItemRequest<T>
+        where T : notnull
     {
         [Range(0, double.MaxValue)]
         public int PageIndex { get; set; }
@@ -10,6 +9,6 @@ namespace Catalog.Host.Models.Request
         [Range(0, double.MaxValue)]
         public int PageSize { get; set; }
 
-        public Dictionary<TypeFilter, int>? Filter { get; set; }
+        public Dictionary<T, int>? Filter { get; set; }
     }
 }

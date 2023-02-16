@@ -16,8 +16,6 @@ var callBackUrl = configuration.GetValue<string>("CallBackUrl");
 var redirectUrl = configuration.GetValue<string>("RedirectUrl");
 var sessionCookieLifetime = configuration.GetValue("SessionCookieLifetimeMinutes", 60);
 
-Console.WriteLine($"----------------------{configuration}");
-Console.WriteLine(redirectUrl);
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -44,11 +42,9 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Add("profile");
         options.Scope.Add("mvc");
         options.Scope.Add("catalog.api.catalogbff");
-        Console.WriteLine(options);
     });
 
 builder.Services.Configure<AppSettings>(configuration);
-
 builder.Services.AddAuthorization(configuration);
 
 builder.Services.AddHttpClient();
