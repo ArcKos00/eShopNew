@@ -39,6 +39,22 @@ namespace IdentityServer
                         new Scope("catalog.api.location"),
                         new Scope("catalog.api.catalogbff"),
                     },
+                },
+                new ApiResource("basket")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("basket.basketCache.api")
+                    }
+                },
+                new ApiResource("order")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("order.oprderbff.api"),
+                        new Scope("order.order.api"),
+                        new Scope("order.orderitem.api")
+                    }
                 }
             };
         }
@@ -52,9 +68,9 @@ namespace IdentityServer
                     ClientId = "mvc_pkce",
                     ClientName = "MVC PKCE Client",
                     AllowedGrantTypes = GrantTypes.Code,
-                    ClientSecrets = {new Secret("secret".Sha256())},
-                    RedirectUris = { $"{configuration["MvcUrl"]}/signin-oidc"},
-                    AllowedScopes = { "openid", "profile", "mvc", "catalog.api.catalogbff" },
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    RedirectUris = { $"{configuration["MvcUrl"]}/signin-oidc" },
+                    AllowedScopes = { "openid", "profile", "mvc", "catalog.api.catalogbff", "basket.basketCache.api" },
                     RequirePkce = true,
                     RequireConsent = false
                 },
@@ -79,7 +95,6 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "mvc",
                         "catalog.api.artifact",
                         "catalog.api.abnormaltype",
                         "catalog.api.anomaly",
@@ -87,6 +102,56 @@ namespace IdentityServer
                         "catalog.api.frequence",
                         "catalog.api.location",
                         "catalog.api.catalogbff"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "basket",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                },
+                new Client
+                {
+                    ClientId = "basketswaggerui",
+                    ClientName = "Basket Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{configuration["BasketApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{configuration["BasketApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "basket.basketCache.api"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "order",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                },
+                new Client
+                {
+                    ClientId = "orderswaggerui",
+                    ClientName = "Order Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{configuration["OrderApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{configuration["OrderApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "order.oprderbff.api",
+                        "order.order.api",
+                        "order.orderitem.api",
                     }
                 }
             };

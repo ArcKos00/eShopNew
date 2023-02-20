@@ -54,7 +54,7 @@ namespace Infrastructure.Services
                 _logger.LogError(ex, LoggerDefaultResponse.Rollbacked);
             }
 
-            return default(TResult)!;
+            return default(TResult) !;
         }
     }
 }

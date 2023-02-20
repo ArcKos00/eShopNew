@@ -24,9 +24,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo()
     {
-        Title = "eShop- Catalog HTTP Api",
+        Title = "eShop- Catalog Http Api",
         Version = "v1",
-        Description = "The Catalog Service HTTP Api"
+        Description = "The Catalog Service Http Api"
     });
 
     var authority = configuration["Authorization:Authority"];

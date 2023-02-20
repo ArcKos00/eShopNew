@@ -6,7 +6,7 @@
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var ip = context.HttpContext.Connection.RemoteIpAddress.ToString().Split("ff:")[1];
+            var ip = context.HttpContext.Connection?.RemoteIpAddress?.ToString().Split("ff:")[1];
             var key = $"Ip:{ip}-Path:{context.HttpContext.Request.Path}";
 
             var connect = ConnectionMultiplexer.Connect(ConfigurationOptions.Parse("www.alevelwebsite.com:6380"));

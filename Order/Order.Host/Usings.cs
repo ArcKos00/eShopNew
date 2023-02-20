@@ -1,0 +1,9 @@
+﻿global using System.Net;
+global using Infrastructure.CommonValues;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Infrastructure.Services;
+global using Infrastructure.Identity;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using Order.Host.Services.Interfaces;

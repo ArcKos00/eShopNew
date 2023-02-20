@@ -1,38 +1,7 @@
-﻿namespace Infrastructure.Extensions
+﻿using Infrastructure.Extensions.Middleware;
+
+namespace Infrastructure.Extensions
 {
-    public class RateMiddleware
-    {
-        public long RateLimit { get; set; } = 10;
-        private readonly RequestDelegate _next;
-
-        public RateMiddleware(
-            RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
-        {
-            var ip = context.Connection.RemoteIpAddress.ToString().Split("ff:")[1];
-            var key = $"Ip:{ip}-Path:{context.Request.Path}";
-
-            var connect = ConnectionMultiplexer.Connect(ConfigurationOptions.Parse("www.alevelwebsite.com:6380"));
-            var database = connect.GetDatabase();
-            var count = database.SetLength(key);
-
-            if (count >= RateLimit)
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.TooManyRequests;
-                return;
-            }
-
-            database.SetAdd(key, count);
-            database.KeyExpire(key, TimeSpan.FromMinutes(1));
-
-            await _next(context);
-        }
-    }
-
     public static class RateExtension
     {
         public static void UseRateMiddleware(this IApplicationBuilder builder)

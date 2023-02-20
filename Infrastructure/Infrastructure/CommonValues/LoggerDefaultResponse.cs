@@ -10,5 +10,7 @@
         public const string FailedDelete = "Delete failed";
         public const string NotFound = "Not found";
         public const string Rollbacked = "Transaction is rollbacked";
+        public const string ValueCached = "Value was be cached for key:";
+        public const string ValueUpdated = "Value was be updated for key:";
     }
 }

@@ -3,8 +3,6 @@ using Catalog.Host.Models.Request;
 using Catalog.Host.Models.Request.AddRequests;
 using Catalog.Host.Models.Request.UpdateRequest;
 using Catalog.Host.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers
 {
