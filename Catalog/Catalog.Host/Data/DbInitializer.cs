@@ -1,5 +1,4 @@
 ﻿using Catalog.Host.Data.Entities;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Catalog.Host.Data
 {

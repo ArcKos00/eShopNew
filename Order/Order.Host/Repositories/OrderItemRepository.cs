@@ -1,7 +1,7 @@
 ﻿using Order.Host.Repositories.Interfaces;
 using Order.Host.Data;
-using Infrastructure.Services.Interfaces;
 using Order.Host.Data.Entities;
+using Infrastructure.Services.Interfaces;
 
 namespace Order.Host.Repositories
 {

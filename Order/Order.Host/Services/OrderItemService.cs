@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Infrastructure.Services.Interfaces;
+﻿using Infrastructure.Services.Interfaces;
 using Order.Host.Data;
 using Order.Host.Models.Dto;
 using Order.Host.Repositories.Interfaces;

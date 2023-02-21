@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Catalog.Host.Data;
+﻿using Catalog.Host.Data;
 using Catalog.Host.Repositories.Interfaces;
 using Infrastructure.Services.Interfaces;
 using Infrastructure.Services;
 using Catalog.Host.Services.Interfaces;
 using Catalog.Host.Models.Dtos;
-using Microsoft.Extensions.Hosting;
 
 namespace Catalog.Host.Services
 {

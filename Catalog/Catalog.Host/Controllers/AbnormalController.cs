@@ -8,7 +8,7 @@ namespace Catalog.Host.Controllers
 {
     [ApiController]
     [Scope("catalog.api.abnormaltype")]
-    [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
+    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class AbnormalController : ControllerBase
     {

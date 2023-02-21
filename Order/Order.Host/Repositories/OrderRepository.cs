@@ -1,8 +1,8 @@
 ﻿using Order.Host.Data.Entities;
 using Order.Host.Repositories.Interfaces;
 using Order.Host.Data;
-using Infrastructure.Services.Interfaces;
 using Order.Host.Models.Response;
+using Infrastructure.Services.Interfaces;
 
 namespace Order.Host.Repositories
 {
@@ -25,7 +25,7 @@ namespace Order.Host.Repositories
             {
                 UserId = userId,
                 TotalCost = totalCost,
-                Date = DateTime.Now,
+                Date = DateTime.UtcNow,
                 Status = "Created"
             });
 

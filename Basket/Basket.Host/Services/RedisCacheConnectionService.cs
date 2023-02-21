@@ -1,7 +1,5 @@
 ﻿using Basket.Host.Configurations;
 using Basket.Host.Services.Interfaces;
-using Microsoft.Extensions.Options;
-using StackExchange.Redis;
 
 namespace Basket.Host.Services
 {

@@ -1,6 +1,5 @@
 using Infrastructure.Extensions;
 using Infrastructure.Filters;
-using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Microsoft.OpenApi.Models;
 using Order.Host.Configurations;
@@ -8,7 +7,6 @@ using Order.Host.Data;
 using Order.Host.Repositories;
 using Order.Host.Repositories.Interfaces;
 using Order.Host.Services;
-using Order.Host.Services.Interfaces;
 
 var configurations = GetConfiguration();
 
@@ -40,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri($"{authority}/connect/token"),
                 Scopes = new Dictionary<string, string>()
                 {
-                    { "order.oprderbff.api", "orderbffapi" },
+                    { "order.orderbff.api", "orderbffapi" },
                     { "order.order.api", "orderapi" },
                     { "order.orderitem.api", "orderitemapi" }
                 }
@@ -52,6 +50,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.AddConfiguration();
+
 builder.Services.Configure<Config>(configurations);
 
 builder.Services.AddAuthorization(configurations);

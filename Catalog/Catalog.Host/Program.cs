@@ -8,8 +8,6 @@ using Infrastructure.Extensions;
 using Infrastructure.Filters;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
-using Microsoft.Net.Http.Headers;
-using Microsoft.OpenApi.Models;
 
 var configuration = GetConfiguration();
 

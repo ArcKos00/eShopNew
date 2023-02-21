@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Catalog.Host.Data;
+﻿using Catalog.Host.Data;
 using Catalog.Host.Repositories.Interfaces;
 using Infrastructure.Services.Interfaces;
 using Infrastructure.Services;

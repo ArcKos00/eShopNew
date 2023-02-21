@@ -6,8 +6,8 @@ using Order.Host.Models.Request.Update;
 namespace Order.Host.Controllers
 {
     [ApiController]
-    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
     [Scope("order.order.api")]
+    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class OrderController : ControllerBase
     {

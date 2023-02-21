@@ -1,6 +1,5 @@
 ﻿using IdentityServer4.Models;
 using System.Collections.Generic;
-using System;
 using Microsoft.Extensions.Configuration;
 
 namespace IdentityServer
@@ -51,7 +50,7 @@ namespace IdentityServer
                 {
                     Scopes = new List<Scope>
                     {
-                        new Scope("order.oprderbff.api"),
+                        new Scope("order.orderbff.api"),
                         new Scope("order.order.api"),
                         new Scope("order.orderitem.api")
                     }
@@ -70,7 +69,7 @@ namespace IdentityServer
                     AllowedGrantTypes = GrantTypes.Code,
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     RedirectUris = { $"{configuration["MvcUrl"]}/signin-oidc" },
-                    AllowedScopes = { "openid", "profile", "mvc", "catalog.api.catalogbff", "basket.basketCache.api" },
+                    AllowedScopes = { "openid", "profile", "mvc", "catalog.api.catalogbff", "basket.basketCache.api", "order.orderbff.api" },
                     RequirePkce = true,
                     RequireConsent = false
                 },
@@ -125,7 +124,8 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "basket.basketCache.api"
+                        "basket.basketCache.api",
+                        "order.order.api"
                     }
                 },
                 new Client
@@ -149,7 +149,7 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "order.oprderbff.api",
+                        "order.orderbff.api",
                         "order.order.api",
                         "order.orderitem.api",
                     }

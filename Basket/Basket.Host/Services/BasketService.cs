@@ -1,9 +1,7 @@
 ﻿using Basket.Host.Configurations;
 using Basket.Host.Models.Basket;
 using Basket.Host.Services.Interfaces;
-using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace Basket.Host.Services
 {
@@ -67,6 +65,7 @@ namespace Basket.Host.Services
                 return;
             }
 
+            basket.BasketList.Remove(basketItem);
             await _cacheService.AddOrUpdateAsync(userId, basket);
             _logger.LogInformation(LoggerDefaultResponse.SuccessfulDelete);
         }
@@ -81,7 +80,7 @@ namespace Basket.Host.Services
             }
 
             await _httpClient.SendAsync<object, BasketModel>(
-                $"{_config.OrderApi}/createorder",
+                $"{_config.OrderApi}/order/add",
                 HttpMethod.Post,
                 new UserBasket()
                 {

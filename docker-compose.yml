@@ -40,8 +40,7 @@ services:
         environment: 
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:5003
-            - OrderApi=http://www.alevelwebsite.com:5004/api/v1/orderbff
-            - CatalogApi=http://www.alevelwebsite.com:5000/api/v1/catalogbff
+            - OrderApi=http://www.alevelwebsite.com:5004/api/v1
             - BasePath=http://www.alevelwebsite.com:5003
             - Authorization__Authority=http://www.alevelwebsite.com:5002
             - RedisConfig__Host=www.alevelwebsite.com:6380

@@ -1,19 +1,12 @@
-﻿using System.Net;
-using Catalog.Host.Models.Dtos;
+﻿using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Enums;
 using Catalog.Host.Models.Request;
 using Catalog.Host.Models.Response;
-using Catalog.Host.Services;
 using Catalog.Host.Services.Interfaces;
-using IdentityModel.Client;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Catalog.Host.Controllers
 {
     [ApiController]
     [Scope("catalog.api.catalogbff")]
-    [AllowAnonymous]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase

@@ -2,6 +2,7 @@
 {
     public class CacheRequest
     {
+        [Required]
         public string UserId { get; set; } = null!;
     }
 }

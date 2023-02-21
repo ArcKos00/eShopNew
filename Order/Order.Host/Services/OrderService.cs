@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Infrastructure.Services.Interfaces;
+﻿using Infrastructure.Services.Interfaces;
 using Order.Host.Data;
 using Order.Host.Data.Entities;
 using Order.Host.Models.Dto;
 using Order.Host.Models.Response;
 using Order.Host.Repositories.Interfaces;
-using Order.Host.Services.Interfaces;
 
 namespace Order.Host.Services
 {

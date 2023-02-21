@@ -2,6 +2,7 @@
 {
     public class UserIdRequest
     {
+        [Required]
         public string UserId { get; set; } = null!;
     }
 }

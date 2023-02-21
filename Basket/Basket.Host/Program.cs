@@ -5,7 +5,6 @@ using Infrastructure.Extensions;
 using Infrastructure.Filters;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
-using Microsoft.OpenApi.Models;
 
 var configuration = GetConfigurations();
 
@@ -37,7 +36,8 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri($"{authority}/connect/token"),
                 Scopes = new Dictionary<string, string>()
                 {
-                    { "basket.basketCache.api", "basketApi" }
+                    { "basket.basketCache.api", "basketApi" },
+                    { "order.order.api", "orderApi" }
                 }
             }
         }
@@ -47,7 +47,9 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.AddConfiguration();
+builder.Services.AddAuthorization(configuration);
 builder.Services.Configure<Config>(configuration);
+builder.Services.Configure<RedisConfig>(builder.Configuration.GetSection("Redis"));
 
 builder.Services.AddHttpClient();
 builder.Services.AddTransient<IRedisCacheConnectionService, RedisCacheConnectionService>();
@@ -55,8 +57,6 @@ builder.Services.AddTransient<IBasketService, BasketService>();
 builder.Services.AddTransient<ICacheService, CacheService>();
 builder.Services.AddTransient<IJsonSerializer, JsonSerializer>();
 builder.Services.AddTransient<IInternalHttpClientService, InternalHttpClientService>();
-
-builder.Services.Configure<RedisConfig>(builder.Configuration.GetSection("Redis"));
 
 builder.Services.AddCors(options =>
 {

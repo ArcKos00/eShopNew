@@ -1,8 +1,4 @@
-﻿using Infrastructure.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-
-namespace Infrastructure.Filters
+﻿namespace Infrastructure.Filters
 {
     public class HttpGlobalExceptionFilter : IExceptionFilter
     {

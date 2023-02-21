@@ -1,13 +1,12 @@
 ﻿using Basket.Host.Models.Basket;
 using Basket.Host.Models.Request;
 using Basket.Host.Services.Interfaces;
-using Infrastructure.Identity;
 
 namespace Basket.Host.Controllers
 {
-    // [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [ApiController]
     [Route(ComponentDefaults.DefaultRoute)]
+    [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Scope("basket.basketCache.api")]
     public class BasketBffController : ControllerBase
     {
