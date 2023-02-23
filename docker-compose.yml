@@ -70,24 +70,13 @@ services:
         ports:
             - 5004:5004
 
-    web.mvc:
-        container_name: lde.web.mvc
-        build:
-            context: .
-            dockerfile: Web/MVC/Dockerfile
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://+:5001
-            - CatalogUrl=http://www.alevelwebsite.com:5000/api/v1/catalogbff
-            - Authorization__Authority=http://www.alevelwebsite.com:5002
-            - IdentityUrl=http://www.alevelwebsite.com:5002
-            - CallBackUrl=http://www.alevelwebsite.com:5001
-            - RedirectUrl=http://www.alevelwebsite.com:5001/signin-oidc
-        depends_on:
-            - identityserver
-            - catalog.api
+    web.client:
+        container_name: lde.web.client
+        build: 
+            context: ./Web/webapplication
+            dockerfile: Dockerfile
         ports:
-            - 5001:5001
+            - 5001:3000
 
     postgres:
         container_name: lde.postgres
