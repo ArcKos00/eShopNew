@@ -1,6 +1,6 @@
-﻿using MVC.Dtos;
-using MVC.Models.Enums;
+﻿using MVC.Models.Enums;
 using MVC.Services.Interfaces;
+using MVC.Models.Requests;
 using MVC.ViewModels;
 
 namespace MVC.Services

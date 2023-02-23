@@ -24,14 +24,6 @@ namespace Order.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> CreateOrder(AddOrderRequest request)
-        {
-            var result = await _service.Add(request.UserId, request.BasketList);
-            return Ok(result);
-        }
-
-        [HttpPost]
         [ProducesResponseType(typeof(UserOrders<Orders>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetUserOrders(PaginatedUserOrdersRequest request)
         {

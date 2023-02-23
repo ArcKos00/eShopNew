@@ -26,7 +26,7 @@ namespace Basket.Host.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> AddToBasket(WithItemIdRequest request)
         {
-            await _service.AddToBasket(request.UserId, request.ItemId, request.Name, request.Cost);
+            await _service.AddToBasket(request.UserId, request.Id, request.Name, request.Cost);
             return Ok();
         }
 
@@ -35,7 +35,7 @@ namespace Basket.Host.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> RemoveFromBasket(WithItemIdRequest request)
         {
-            await _service.RemoveFromBasket(request.UserId, request.ItemId);
+            await _service.RemoveFromBasket(request.UserId, request.Id);
             return Ok();
         }
 
