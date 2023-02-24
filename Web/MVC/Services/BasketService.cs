@@ -3,7 +3,7 @@ using MVC.ViewModels;
 
 namespace MVC.Services
 {
-    public class BasketService
+    public class BasketService : IBasketService
     {
         private readonly IOptions<AppSettings> _options;
         private readonly IHttpClientService _httpClient;

@@ -4,7 +4,7 @@ using MVC.ViewModels;
 namespace MVC.Controllers
 {
     [Authorize]
-    public class AccountController : ControllerBase
+    public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
         private readonly IIdentityParser<ApplicationUser> _identityParser;

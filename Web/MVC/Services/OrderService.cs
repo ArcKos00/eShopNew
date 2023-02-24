@@ -4,7 +4,7 @@ using MVC.ViewModels;
 
 namespace MVC.Services
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly IOptions<AppSettings> _options;
         private readonly ILogger<OrderService> _logger;

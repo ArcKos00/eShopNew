@@ -12,5 +12,7 @@ namespace MVC.ViewModels.CatalogViewModels
         public int? TypeFilterApplied { get; set; }
         public int? MeetFilterApplied { get; set; }
         public PaginationInfo PaginationInfo { get; set; } = null!;
+        public Basket Basket { get; set; } = null!;
+        public IEnumerable<Order> Orders { get; set; } = null!;
     }
 }
