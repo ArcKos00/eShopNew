@@ -1,20 +1,17 @@
 import { makeAutoObservable } from 'mobx';
 import * as authApi from '../api/modules/auth';
+import AuthService from './AuthService';
 
 class AuthStore {
     token = '';
-
+    AuthService;
     constructor() {
         makeAutoObservable(this);
+        this.AuthService = new AuthService();
     };
 
     async login(email: string, password: string) {
-        const result = await authApi.login({ email, password });
-        this.token = result.token;
-    };
-
-    async register(email: string, password: string) {
-        return await authApi.register({ email, password });
+        
     };
 
     logout() {

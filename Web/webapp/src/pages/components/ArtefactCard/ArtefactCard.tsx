@@ -3,16 +3,16 @@ import {
     Card,
     CardActionArea
 } from '@mui/material';
-import { IUser } from '../../../interfaces/users';
-import CardFilling from './UserFilling';
+import { IArtefact } from '../../../interfaces/artefacts';
+import CardFilling from './ArtefactFilling';
 import { useNavigate } from 'react-router-dom';
 
-interface UserCardProps {
-    user: IUser,
+interface ArtefactCardProps {
+    artefact: IArtefact,
     isClicable: boolean
 };
 
-const UserCard: FC<UserCardProps> = (card): ReactElement => {
+const UserCard: FC<ArtefactCardProps> = (card): ReactElement => {
     const navigate = useNavigate();
 
     return (
@@ -21,12 +21,12 @@ const UserCard: FC<UserCardProps> = (card): ReactElement => {
         >
             {card.isClicable &&
                 <CardActionArea
-                    onClick={() => navigate(`/user/${card.user?.id}`)}
+                    onClick={() => navigate(`/user/${card.artefact?.Id}`)}
                 >
-                    <CardFilling {...card?.user} />
+                    <CardFilling {...card?.artefact} />
                 </CardActionArea>}
             {!card.isClicable &&
-                <CardFilling {...card?.user} />}
+                <CardFilling {...card?.artefact} />}
         </Card>
     );
 };

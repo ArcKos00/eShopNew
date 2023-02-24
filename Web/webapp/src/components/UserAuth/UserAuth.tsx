@@ -14,6 +14,9 @@ import { routes } from '../../routes';
 import { NavLink, useNavigate } from 'react-router-dom';
 import LoginStore from '../../pages/Login/LoginStore';
 import { observer } from 'mobx-react-lite';
+import AuthService from '../../stores/AuthService';
+
+var authService = new AuthService();
 
 const UserAuth = () => {
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -90,30 +93,14 @@ const UserAuth = () => {
             </>
             ) : (
                 <>
-                    <Button variant='contained' color='success'>
-                        {!!login && <Link
-                            key={login.key}
-                            component={NavLink}
-                            to={login.path}
-                            color='black'
-                            underline='none'
-                        >
-                            <Typography>{login?.title}</Typography>
-                        </Link>}
-                    </Button>
-                    <Button variant='contained' color='primary'>
-                        {!!register && <Link
-                            key={register.key}
-                            component={NavLink}
-                            to={register.path}
-                            color='black'
-                            underline='none'
-                        >
-                            <Typography>{register.title}</Typography>
-                        </Link>}
+                    <Button onClick={authService.userManager.signinPopup} variant='contained' color='success'>
+                        asdasd
                     </Button>
                 </>
             )}
+            <Button onClick={authService.userManager.signinRedirect}>
+                asdasd
+            </Button>
         </>
     );
 };

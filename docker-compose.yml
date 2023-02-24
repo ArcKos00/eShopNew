@@ -9,94 +9,94 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:5002
-            - MvcUrl=http://www.alevelwebsite.com:5001
+            - MvcUrl=http://www.alevelwebsite.com:3001
             - CatalogApi=http://www.alevelwebsite.com:5000
             - BasketApi=http://www.alevelwebsite.com:5003
         ports:
             - 5002:5002
 
-    catalog.api:
-        container_name: lde.catalog.api
-        build:
-            context: .
-            dockerfile: Catalog/Catalog.Host/Dockerfile
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://+:5000
-            - ConnectionString=server=www.alevelwebsite.com;port=5433;database=catalog;uid=postgres;password=postgres;
-            - Authorization__Authority=http://www.alevelwebsite.com:5002
-            - BasePath=http://www.alevelwebsite.com:5000
-        depends_on:
-            - postgres
-            - identityserver
-        ports:
-            - 5000:5000
-
-    basket.api:
-        container_name: lde.basket.api
-        build:
-            context: .
-            dockerfile: Basket/Basket.Host/Dockerfile
-        environment: 
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://+:5003
-            - OrderApi=http://www.alevelwebsite.com:5004/api/v1
-            - BasePath=http://www.alevelwebsite.com:5003
-            - Authorization__Authority=http://www.alevelwebsite.com:5002
-            - RedisConfig__Host=www.alevelwebsite.com:6380
-            - RedisConfig__CacheTimeout=02:00:00
-        depends_on:
-            - redis
-            - identityserver
-            - order.api
-            - catalog.api
-        ports:
-            - 5003:5003
-
-    order.api:
-        container_name: lde.order.api
-        build:
-            context: .
-            dockerfile: Order/Order.Host/Dockerfile
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://+:5004
-            - ConnectionString=server=www.alevelwebsite.com;port=5433;database=order;uid=postgres;password=postgres;
-            - BasePath=http://www.alevelwebsite.com:5004
-            - Authorization__Authority=http://www.alevelwebsite.com:5002
-        depends_on:
-            - identityserver
-            - postgres
-        ports:
-            - 5004:5004
-
+#    catalog.api:
+#        container_name: lde.catalog.api
+#        build:
+#            context: .
+#            dockerfile: Catalog/Catalog.Host/Dockerfile
+#        environment:
+#            - ASPNETCORE_ENVIRONMENT=Development
+#            - ASPNETCORE_URLS=http://+:5000
+#            - ConnectionString=server=www.alevelwebsite.com;port=5433;database=catalog;uid=postgres;password=postgres;
+#            - Authorization__Authority=http://www.alevelwebsite.com:5002
+#            - BasePath=http://www.alevelwebsite.com:5000
+#        depends_on:
+#            - postgres
+#            - identityserver
+#        ports:
+#            - 5000:5000
+#
+#    basket.api:
+#        container_name: lde.basket.api
+#        build:
+#            context: .
+#            dockerfile: Basket/Basket.Host/Dockerfile
+#        environment: 
+#            - ASPNETCORE_ENVIRONMENT=Development
+#            - ASPNETCORE_URLS=http://+:5003
+#            - OrderApi=http://www.alevelwebsite.com:5004/api/v1
+#            - BasePath=http://www.alevelwebsite.com:5003
+#            - Authorization__Authority=http://www.alevelwebsite.com:5002
+#            - RedisConfig__Host=www.alevelwebsite.com:6380
+#            - RedisConfig__CacheTimeout=02:00:00
+#        depends_on:
+#            - redis
+#            - identityserver
+#            - order.api
+#            - catalog.api
+#        ports:
+#            - 5003:5003
+#
+#    order.api:
+#        container_name: lde.order.api
+#        build:
+#            context: .
+#            dockerfile: Order/Order.Host/Dockerfile
+#        environment:
+#            - ASPNETCORE_ENVIRONMENT=Development
+#            - ASPNETCORE_URLS=http://+:5004
+#            - ConnectionString=server=www.alevelwebsite.com;port=5433;database=order;uid=postgres;password=postgres;
+#            - BasePath=http://www.alevelwebsite.com:5004
+#            - Authorization__Authority=http://www.alevelwebsite.com:5002
+#        depends_on:
+#            - identityserver
+#            - postgres
+#        ports:
+#            - 5004:5004
+#
     web.client:
         container_name: lde.web.client
         build: 
-            context: ./Web/webapplication
+            context: ./Web/webapp
             dockerfile: Dockerfile
         ports:
-            - 5001:3000
-
-    postgres:
-        container_name: lde.postgres
-        image: postgres
-        environment:
-            POSTGRES_PASSWORD: postgres
-        ports:
-            - 5433:5432
-
-    pgAdmin:
-        container_name: lde.pgAdmin
-        image: dpage/pgadmin4
-        environment:
-            PGADMIN_DEFAULT_EMAIL: user@domain.com
-            PGADMIN_DEFAULT_PASSWORD: postgres
-        depends_on:
-            - postgres
-        ports:
-            - 8001:80
-
+            - 3001:3000
+#
+#    postgres:
+#        container_name: lde.postgres
+#        image: postgres
+#        environment:
+#            POSTGRES_PASSWORD: postgres
+#        ports:
+#            - 5433:5432
+#
+#    pgAdmin:
+#        container_name: lde.pgAdmin
+#        image: dpage/pgadmin4
+#        environment:
+#            PGADMIN_DEFAULT_EMAIL: user@domain.com
+#            PGADMIN_DEFAULT_PASSWORD: postgres
+#        depends_on:
+#            - postgres
+#        ports:
+#            - 8001:80
+#
     nginx:
         container_name: lde.nginx
         image: nginx
@@ -106,11 +106,11 @@ services:
             - ./Proxy/gateway/nginx/conf.d:/etc/nginx/conf.d
             - ./Proxy/assets:/var/www/assets
 
-    redis:
-        container_name: lde.redis
-        image: redis
-        ports:
-            - 6380:6379
+#    redis:
+#        container_name: lde.redis
+#        image: redis
+#        ports:
+#            - 6380:6379
 
 networks:
     default:    

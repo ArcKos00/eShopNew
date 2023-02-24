@@ -1,4 +1,4 @@
-const baseUrl = 'https://reqres.in/api/';
+const baseUrl = 'http://www.alevelwebsite.com/api/v1';
 
 const handlerResponse = async (response: Response) => {
     if (!response.ok) {

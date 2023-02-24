@@ -1,10 +1,7 @@
 import About from './pages/About';
 import Home from './pages/Home';
-import User from './pages/User';
-import Users from './pages/Users';
-import Resource from './pages/Resource';
-import Resources from './pages/Resources';
-import Registration from './pages/Registration';
+import User from './pages/Artefact';
+import Users from './pages/Artefacts';
 import Login from './pages/Login';
 import Settings from './pages/Settings'
 import { Route } from './interfaces/route';
@@ -44,35 +41,11 @@ export const routes: Array<Route> = [
     },
     {
         place: 'NavBar',
-        key: 'resources-route',
-        title: 'Resources',
-        path: '/resources',
-        enabled: true,
-        component: Resources
-    },
-    {
-        place: 'NavBar',
-        key: 'resource-route',
-        title: 'Resource',
-        path: '/resource/:id',
-        enabled: false,
-        component: Resource
-    },
-    {
-        place: 'NavBar',
         key: 'login-user',
         title:'Login',
         path:'/login',
         enabled: false,
         component: Login
-    },
-    {
-        place: 'NavBar',
-        key:'register-user',
-        title:'Registration',
-        path:'/registration',
-        enabled: false,
-        component: Registration
     },
     {
         place: 'UserMenu',

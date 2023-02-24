@@ -1,4 +1,4 @@
-import User from './pages/User';
+import User from './pages/Artefact';
 import Settings from './pages/Settings'
 
 

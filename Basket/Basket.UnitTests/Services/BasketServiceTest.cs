@@ -202,7 +202,6 @@ namespace Basket.UnitTests.Services
         public async Task GetBasket_Successful()
         {
             // arrange
-            var testUser = "Test";
             var testId = 2;
             var testName = "Test";
             var testCost = 1;
@@ -261,7 +260,6 @@ namespace Basket.UnitTests.Services
         public async Task MakeAnOrder_Successful()
         {
             // arrange
-            var testUser = "Test";
             var testId = 2;
             var testName = "Test";
             var testCost = 1;

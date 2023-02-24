@@ -119,7 +119,7 @@
         public async Task GetClasses_Failed()
         {
             // assert
-            List<AnomalyEntity> emptyEntity = null;
+            List<AnomalyEntity> emptyEntity = null!;
             _repository.Setup(s => s.GetAnomaly()).ReturnsAsync(emptyEntity);
 
             // act

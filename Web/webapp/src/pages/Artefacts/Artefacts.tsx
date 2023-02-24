@@ -1,18 +1,21 @@
 import { ReactElement, FC } from 'react';
 import {
     Box,
+    Button,
     Container,
     CircularProgress,
     Grid,
     Pagination
 } from '@mui/material';
+import UserCard from '../components/ArtefactCard';
+import Form from '../components/UpdateForm/Form';
+import * as artefactApi from '../../api/modules/artefacts';
+import UserStore from './UsersStore';
 import { observer } from 'mobx-react-lite';
-import ResourceCard from '../components/ResourceCard';
-import ResourcesStore from './ResourcesStore';
 
-const store = new ResourcesStore();
+const store = new UserStore();
 
-const Resources: FC<any> = (): ReactElement => {
+const Users: FC<any> = (): ReactElement => {
     return (
         <Box
             sx={{
@@ -29,9 +32,9 @@ const Resources: FC<any> = (): ReactElement => {
                         <CircularProgress />
                     ) : (
                         <>
-                            {store.resources?.map((item) => (
-                                <Grid key={item.id} item lg={3} md={4} sm={6} xs={12}>
-                                    <ResourceCard {...{ resource: item, isClicable: true }} />
+                            {store.users?.map((item) => (
+                                <Grid key={item.Id} item lg={2} md={3} xs={6}>
+                                    <UserCard {...{ artefact: item, isClicable: true }} />
                                 </Grid>
                             ))}
                         </>
@@ -48,9 +51,9 @@ const Resources: FC<any> = (): ReactElement => {
                         page={store.currentPage}
                         onChange={async (event, page) => await store.changePage(page)} />
                 </Box>
-            </Container>
-        </Box>
+            </Container >
+        </Box >
     );
 };
 
-export default observer(Resources);
+export default observer(Users);

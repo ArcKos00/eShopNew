@@ -122,7 +122,7 @@ namespace Catalog.UnitTests.Services
         public async Task GetMeets_Failed()
         {
             // assert
-            List<FrequencyEntity> emptyEntity = null;
+            List<FrequencyEntity> emptyEntity = null!;
             _repository.Setup(s => s.GetMeets()).ReturnsAsync(emptyEntity);
 
             // act
