@@ -1,5 +1,4 @@
-import User from './pages/Artefact';
-import Settings from './pages/Settings'
+import User from './pages/User';
 
 
 import { Route } from './interfaces/route'
@@ -13,12 +12,4 @@ export const userRoutes: Array<Route> = [
         enabled: false,
         component: User
     },
-    {
-        place: 'userMenu',
-        key: 'user',
-        title: 'User Settings',
-        path: 'userSettings',
-        enabled: true,
-        component: Settings
-    }
 ] 

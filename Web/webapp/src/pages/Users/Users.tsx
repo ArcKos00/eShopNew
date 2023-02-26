@@ -7,9 +7,9 @@ import {
     Grid,
     Pagination
 } from '@mui/material';
-import UserCard from '../components/ArtefactCard';
+import UserCard from '../components/UserCard';
 import Form from '../components/UpdateForm/Form';
-import * as artefactApi from '../../api/modules/artefacts';
+import { createUser } from '../../api/modules/users';
 import UserStore from './UsersStore';
 import { observer } from 'mobx-react-lite';
 
@@ -27,14 +27,36 @@ const Users: FC<any> = (): ReactElement => {
             }}
         >
             <Container>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}>
+                    <Button
+                        fullWidth
+                        variant='contained'
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={store.handleOpenForm}>
+                        Create New User
+                    </Button>
+                    {store.openForm &&
+                        <Box>
+                            <Form
+                                formName='Create User'
+                                apiMethod={createUser}
+                                data={{ name: '', job: '' }}
+                                callBackClose={store.handleOpenForm}
+                            />
+                        </Box>}
+                </Box>
                 <Grid container spacing={4} justifyContent='center' my={4}>
                     {store.isLoading ? (
                         <CircularProgress />
                     ) : (
                         <>
                             {store.users?.map((item) => (
-                                <Grid key={item.Id} item lg={2} md={3} xs={6}>
-                                    <UserCard {...{ artefact: item, isClicable: true }} />
+                                <Grid key={item.id} item lg={2} md={3} xs={6}>
+                                    <UserCard {...{ user: item, isClicable: true }} />
                                 </Grid>
                             ))}
                         </>

@@ -39,7 +39,6 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri($"{authority}/connect/token"),
                 Scopes = new Dictionary<string, string>()
                 {
-                    { "mvc", "website" },
                     { "catalog.api.artifact", "artifact" },
                     { "catalog.api.abnormaltype", "abnormaltype" },
                     { "catalog.api.anomaly", "anomaly" },

@@ -1,11 +1,9 @@
 import About from './pages/About';
 import Home from './pages/Home';
-import User from './pages/Artefact';
-import Users from './pages/Artefacts';
-import Login from './pages/Login';
-import Settings from './pages/Settings'
+import User from './pages/User';
+import Users from './pages/Users';
 import { Route } from './interfaces/route';
-
+import Callback from './stores/Callback';
 export const routes: Array<Route> = [
     {
         place: 'NavBar',
@@ -40,27 +38,19 @@ export const routes: Array<Route> = [
         component: User
     },
     {
-        place: 'NavBar',
-        key: 'login-user',
-        title:'Login',
-        path:'/login',
-        enabled: false,
-        component: Login
-    },
-    {
         place: 'UserMenu',
         key: 'info-user',
         title: 'User Info',
-        path: 'user/:id',
+        path: '/user/:id',
         enabled: false,
         component: User
     },
     {
-        place: 'UserMenu',
-        key: 'user',
-        title: 'User Settings',
-        path: '/userSettings',
-        enabled: true,
-        component: Settings
-    }
+        place: 'void',
+        key: 'callback',
+        title: 'CallBack',
+        path: '/callback',
+        enabled: false,
+        component: Callback
+    },
 ] 

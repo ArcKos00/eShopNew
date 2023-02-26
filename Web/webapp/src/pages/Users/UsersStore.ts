@@ -1,17 +1,21 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { IArtefact } from "../../interfaces/artefacts";
-import * as artefactApi from '../../api/modules/artefacts'
+import { IUser } from "../../interfaces/users";
+import * as userApi from '../../api/modules/users'
 
 class UserStore {
-    users: IArtefact[] = [];
-    pageSize = 6;
+    users: IUser[] = [];
     currentPage = 1;
     totalPages = 0;
     isLoading = false;
+    openForm = false;
 
     constructor() {
         makeAutoObservable(this);
         runInAction(this.prefetchData);
+    };
+
+    handleOpenForm = () => {
+        this.openForm = !this.openForm;
     };
 
     async changePage(page: number) {
@@ -21,10 +25,8 @@ class UserStore {
 
     prefetchData = async () => {
         try {
-            var pagIndex = this.currentPage
-            var pagSize = this.pageSize
             this.isLoading = true;
-            const result = await artefactApi.getArtefactsByPage({ PageIndex: this.currentPage, PageSize: this.pageSize, Filters: null });
+            const result = await userApi.getUserByPage(this.currentPage);
             this.users = result.data;
             this.totalPages = result.total_pages;
         }

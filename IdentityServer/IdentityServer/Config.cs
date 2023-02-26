@@ -66,16 +66,23 @@ namespace IdentityServer
                 {
                     ClientId = "client_pkce",
                     ClientName = "React PKCE Client",
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    ClientSecrets = {new Secret("secret".Sha256())},
+                    AllowedGrantTypes = GrantTypes.Code,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
+                    RequirePkce = true,
 
-                    RedirectUris = { $"{configuration["MvcUrl"]}/signin-oidc" },
-                    PostLogoutRedirectUris = {$"{configuration["MvcUrl"]}"},
-                    AllowedCorsOrigins ={$"{configuration["mvcUrl"]}"},
-                    
+                    RedirectUris = { $"{configuration["MvcUrl"]}/callback" },
+                    PostLogoutRedirectUris = { $"{configuration["MvcUrl"]}" },
+                    AllowedCorsOrigins =
+                    {
+                        $"{configuration["MvcUrl"]}",
+                        "http://localhost:3000"
+                    },
+
                     AllowedScopes =
                     {
+                        
                         "openid",
                         "profile",
                         "catalog.api.catalogbff",

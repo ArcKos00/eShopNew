@@ -20,10 +20,7 @@ export const Footer: FC = (): ReactElement => {
                 <Grid container direction='column' alignItems='center'>
                     <Grid item xs={12}>
                         <Typography color='black' variant='h5'>
-                            {!!app.authStore.token ? (
-                                <span
-                                    style={{ color: 'green' }}>{`Token is: ${app.authStore.token}`}</span>
-                            ) : 'ArcKos00'}
+                            ArcKos00
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>

@@ -6,24 +6,27 @@ import {
     CircularProgress,
     Grid
 } from '@mui/material';
-import * as artefactApi from '../../api/modules/artefacts';
-import { IArtefact } from '../../interfaces/artefacts';
+import * as userApi from '../../api/modules/users';
+import { IUser } from '../../interfaces/users';
 import { useParams } from 'react-router-dom';
+import Form from '../components/UpdateForm/Form';
 import Card from '@mui/material/Card';
-import CardFilling from '../components/ArtefactCard/ArtefactFilling';
+import CardFilling from '../components/UserCard/UserFilling';
+import * as apiClient from '../../api/modules/users';
 
 const User: FC<any> = (): ReactElement => {
-    const [artefact, setArtefact] = useState<IArtefact | null>(null);
+    const [user, setUser] = useState<IUser | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { id } = useParams();
+    const [openUpdate, setOpenUpdate] = useState(false);
 
     useEffect(() => {
         if (id) {
             const getUser = async () => {
                 try {
                     setIsLoading(true);
-                    const res = await artefactApi.getArtefactById(id);
-                    setArtefact(res.data)
+                    const res = await userApi.getUserById(id);
+                    setUser(res.data)
                 }
                 catch (e) {
                     if (e instanceof Error) {
@@ -35,6 +38,10 @@ const User: FC<any> = (): ReactElement => {
             getUser();
         };
     }, [id])
+
+    const handlerUpdateClick = () => {
+        setOpenUpdate(!openUpdate);
+    };
 
     return (
 
@@ -53,15 +60,29 @@ const User: FC<any> = (): ReactElement => {
                         <CircularProgress />
                     ) : (
                         <>
-                            {!!artefact &&
+                            {!!user &&
                                 <Card sx={{ display: 'flex' }}>
                                     <Box
                                         sx={{
                                             display: 'flex',
                                             flexDirection: 'column'
                                         }}>
-                                        <CardFilling {...artefact} />
+                                        <CardFilling {...user} />
+                                        <Button
+                                            onClick={handlerUpdateClick}
+                                        >
+                                            Update This User
+                                        </Button>
                                     </Box>
+                                    {openUpdate &&
+                                        <Box>
+                                            <Form
+                                            formName = 'Update User'
+                                                apiMethod={apiClient.updateUser}
+                                                data={{ id: id, name: '', job: '' }}
+                                                callBackClose={handlerUpdateClick}
+                                            />
+                                        </Box>}
                                 </Card>
                             }
                         </>
