@@ -1,8 +1,11 @@
 import apiClient from '../client';
 
-export const getUserById = (id: string) => apiClient({
-    path: `users/${id}`,
-    method: 'GET'
+const url = "http://www.alevelwebsite.com:5000/api/v1/catalogbff"
+
+export const getitemById = (id: number) => apiClient({
+    path: `${url}/item`,
+    method: 'POST',
+    data: { id: id }
 });
 
 export const getUserByPage = (page: number) => apiClient({

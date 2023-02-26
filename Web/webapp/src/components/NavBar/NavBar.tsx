@@ -27,7 +27,7 @@ const NavBar: FC = (): ReactElement => {
     };
 
     return (
-        <Box alignContent='space-between' sx={{ width: '100%', height: 'auto', backgroundColor: 'secondary.main' }}>
+        <Box alignContent='space-between' sx={{ width: '100%', height: 'auto', backgroundColor: '#424242', color:'white' }}>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -80,10 +80,10 @@ const NavBar: FC = (): ReactElement => {
                         </Menu>
                     </Box>
                     <Typography variant='h6' noWrap component='div' sx={{ justifyContent: 'center', flexGrow: 3, display: { xs: 'flex', md: 'none' } }}>
-                        ArcKos00
+                        Sidorovich's bunker
                     </Typography>
                     <Typography variant='h5' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-                        ArcKos00
+                        Sidorovich's bunker
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '1rem' }}>

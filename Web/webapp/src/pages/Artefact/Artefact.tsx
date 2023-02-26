@@ -6,27 +6,24 @@ import {
     CircularProgress,
     Grid
 } from '@mui/material';
-import * as userApi from '../../api/modules/users';
-import { IUser } from '../../interfaces/users';
+import { IArtefact } from '../../interfaces/artefact';
 import { useParams } from 'react-router-dom';
-import Form from '../components/UpdateForm/Form';
 import Card from '@mui/material/Card';
-import CardFilling from '../components/UserCard/UserFilling';
-import * as apiClient from '../../api/modules/users';
+import CardFilling from '../components/ArtefactCard/CardFilling';
+import { getitemById } from '../../api/modules/catalogApi';
 
-const User: FC<any> = (): ReactElement => {
-    const [user, setUser] = useState<IUser | null>(null);
+const Artefact: FC<any> = (): ReactElement => {
+    const [artefact, setArtefact] = useState<IArtefact | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { id } = useParams();
-    const [openUpdate, setOpenUpdate] = useState(false);
 
     useEffect(() => {
         if (id) {
-            const getUser = async () => {
+            const getArtefact = async () => {
                 try {
                     setIsLoading(true);
-                    const res = await userApi.getUserById(id);
-                    setUser(res.data)
+                    const res = await getitemById(Number(id));
+                    setArtefact(res)
                 }
                 catch (e) {
                     if (e instanceof Error) {
@@ -35,13 +32,9 @@ const User: FC<any> = (): ReactElement => {
                 }
                 setIsLoading(false);
             };
-            getUser();
+            getArtefact();
         };
     }, [id])
-
-    const handlerUpdateClick = () => {
-        setOpenUpdate(!openUpdate);
-    };
 
     return (
 
@@ -60,29 +53,15 @@ const User: FC<any> = (): ReactElement => {
                         <CircularProgress />
                     ) : (
                         <>
-                            {!!user &&
+                            {!!artefact &&
                                 <Card sx={{ display: 'flex' }}>
                                     <Box
                                         sx={{
                                             display: 'flex',
                                             flexDirection: 'column'
                                         }}>
-                                        <CardFilling {...user} />
-                                        <Button
-                                            onClick={handlerUpdateClick}
-                                        >
-                                            Update This User
-                                        </Button>
+                                        <CardFilling {...artefact} />
                                     </Box>
-                                    {openUpdate &&
-                                        <Box>
-                                            <Form
-                                            formName = 'Update User'
-                                                apiMethod={apiClient.updateUser}
-                                                data={{ id: id, name: '', job: '' }}
-                                                callBackClose={handlerUpdateClick}
-                                            />
-                                        </Box>}
                                 </Card>
                             }
                         </>
@@ -93,4 +72,4 @@ const User: FC<any> = (): ReactElement => {
     );
 };
 
-export default User;
+export default Artefact;

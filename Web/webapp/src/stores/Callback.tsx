@@ -15,11 +15,11 @@ const Callback: FC<any> = (): ReactElement => {
         handleCallback();
     }, []);
 
-    return (
-        <>
-            Login
-        </>
-    );
-};
+return (
+    <>
+        Login
+    </>
+);
+}
 
-export default Callback;
+export default Callback; 

@@ -1,9 +1,7 @@
-import About from './pages/About';
-import Home from './pages/Home';
-import User from './pages/User';
-import Users from './pages/Users';
 import { Route } from './interfaces/route';
 import Callback from './stores/Callback';
+import Artefact from './pages/Artefact';
+
 export const routes: Array<Route> = [
     {
         place: 'NavBar',
@@ -11,31 +9,15 @@ export const routes: Array<Route> = [
         title: 'Home',
         path: '/',
         enabled: true,
-        component: Home
+        component: Callback
     },
     {
         place: 'NavBar',
-        key: 'about-route',
-        title: 'About',
-        path: '/about',
-        enabled: true,
-        component: About
-    },
-    {
-        place: 'NavBar',
-        key: 'users-route',
-        title: 'Users',
-        path: '/users',
-        enabled: true,
-        component: Users
-    },
-    {
-        place: 'NavBar',
-        key: 'user-route',
-        title: 'User',
-        path: '/user/:id',
+        key: 'artefact-route',
+        title: 'Artefact',
+        path: '/artefact/:id',
         enabled: false,
-        component: User
+        component: Artefact
     },
     {
         place: 'UserMenu',
@@ -43,7 +25,7 @@ export const routes: Array<Route> = [
         title: 'User Info',
         path: '/user/:id',
         enabled: false,
-        component: User
+        component: Callback
     },
     {
         place: 'void',

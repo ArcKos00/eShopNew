@@ -32,6 +32,7 @@ namespace Catalog.Host.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(Artefact), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Item(BaseRequest request)
         {

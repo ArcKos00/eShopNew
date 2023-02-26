@@ -1,4 +1,4 @@
-const baseUrl = 'https://reqres.in/api/';
+
 
 const handlerResponse = async (response: Response) => {
     if (!response.ok) {
@@ -14,7 +14,7 @@ const apiClient = async ({ path, method, data }: apiClientPrors) => {
         headers: { 'Content-Type': 'application/json' },
         body: !!data ? JSON.stringify(data) : undefined
     };
-    return await fetch(`${baseUrl}${path}`, requestOptions).then(handlerResponse);
+    return await fetch(`${path}`, requestOptions).then(handlerResponse);
 };
 
 interface apiClientPrors {

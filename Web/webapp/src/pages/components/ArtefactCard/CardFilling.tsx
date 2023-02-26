@@ -4,23 +4,23 @@ import {
     CardMedia,
     Typography,
 } from '@mui/material';
-import { IUser } from '../../../interfaces/users';
+import { IArtefact } from '../../../interfaces/artefact';
 
-const CardFilling: FC<IUser> = (user) => {
+const CardFilling: FC<IArtefact> = (artefact) => {
     return (
         <>
             <CardMedia
                 component='img'
                 height='250'
-                image={user?.avatar}
-                alt={user?.email}
+                image={artefact?.imageUrl}
+                alt={artefact?.nature}
             />
             <CardContent>
                 <Typography noWrap gutterBottom variant='h6' component='div'>
-                    {user?.email}
+                    {artefact?.name}
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
-                    {user?.first_name} {user?.last_name}
+                    {artefact?.cost}
                 </Typography>
             </CardContent>
         </>

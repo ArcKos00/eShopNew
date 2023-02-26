@@ -37,8 +37,8 @@ class AuthStore {
         });
     };
 
-    async login() {
-        this.oidc_client.signinRedirect({ state: { some: "some" } });
+    login() {
+        this.oidc_client.signinRedirect();
     };
 
     logout() {
@@ -46,9 +46,12 @@ class AuthStore {
         this.user = null;
     };
 
-    async handleCallback() {
-        const user = await this.oidc_client.signinRedirectCallback();
-        this.user = user;
+    handleCallback() {
+        this.oidc_client.signinRedirectCallback().then(response => {
+            this.user = response;
+        }).catch(error => {
+            console.log(error);
+        });
     }
 };
 

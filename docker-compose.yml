@@ -29,6 +29,7 @@ services:
         depends_on:
             - postgres
             - identityserver
+            - redis
         ports:
             - 5000:5000
 
@@ -108,11 +109,11 @@ services:
     #        - ./Proxy/gateway/nginx/conf.d:/etc/nginx/conf.d
     #        - ./Proxy/assets:/var/www/assets
 
-    #redis:
-    #    container_name: lde.redis
-    #    image: redis
-    #    ports:
-    #        - 6380:6379
+    redis:
+        container_name: lde.redis
+        image: redis
+        ports:
+            - 6380:6379
 
 networks:
     default:    

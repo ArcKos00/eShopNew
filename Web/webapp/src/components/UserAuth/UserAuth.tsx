@@ -93,9 +93,6 @@ const UserAuth = () => {
                         <Button variant='contained' color='success' onClick={signin}>
                             Login
                         </Button>
-                        <Button onClick={signout}>
-                            ssssssssss
-                        </Button>
                     </>
                 )}
         </>
