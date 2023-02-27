@@ -30,13 +30,5 @@ namespace Order.Host.Controllers
             var result = await _service.GetUserOrders(request.UserId, request.PageIndex, request.PageSize);
             return Ok(result);
         }
-
-        [HttpPost]
-        [ProducesResponseType(typeof(UserOrders<Orders>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateStatus(UpdateStatusRequest request)
-        {
-            var result = await _service.UpdateStatus(request.Id, request.Status);
-            return Ok(result);
-        }
     }
 }

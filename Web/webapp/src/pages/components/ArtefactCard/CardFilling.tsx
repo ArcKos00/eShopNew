@@ -19,8 +19,8 @@ const CardFilling: FC<IArtefact> = (artefact) => {
                 <Typography noWrap gutterBottom variant='h6' component='div'>
                     {artefact?.name}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                    {artefact?.cost}
+                <Typography variant='body2' textAlign='end' color='text.secondary'>
+                    {artefact?.cost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                 </Typography>
             </CardContent>
         </>

@@ -5,6 +5,7 @@ using Basket.Host.Services.Interfaces;
 namespace Basket.Host.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Route(ComponentDefaults.DefaultRoute)]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Scope("basket.basketCache.api")]
@@ -22,7 +23,6 @@ namespace Basket.Host.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> AddToBasket(WithItemIdRequest request)
         {
@@ -31,7 +31,6 @@ namespace Basket.Host.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> RemoveFromBasket(WithItemIdRequest request)
         {
@@ -40,7 +39,6 @@ namespace Basket.Host.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> MakeAnOrder(CacheRequest request)
         {
@@ -49,7 +47,6 @@ namespace Basket.Host.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(BasketModel), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetBasket(CacheRequest request)
         {

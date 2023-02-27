@@ -17,17 +17,26 @@ const UserCard: FC<ArtefactCardProps> = (card): ReactElement => {
 
     return (
         <Card
-            sx={{ maxWidth: 250 }}
+            sx={{
+                maxWidth: 250,
+                minWidth: 250,
+                display: "flex",
+                justifyContent: "center"
+            }}
         >
-            {card.isClicable &&
+            {
+                card.isClicable &&
                 <CardActionArea
-                    onClick={() => navigate(`/user/${card.artefact?.id}`)}
+                    onClick={() => navigate(`/artefact/${card.artefact?.id}`)}
                 >
                     <CardFilling {...card?.artefact} />
-                </CardActionArea>}
-            {!card.isClicable &&
-                <CardFilling {...card?.artefact} />}
-        </Card>
+                </CardActionArea>
+            }
+            {
+                !card.isClicable &&
+                <CardFilling {...card?.artefact} />
+            }
+        </Card >
     );
 };
 

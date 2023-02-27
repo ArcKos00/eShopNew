@@ -1,15 +1,17 @@
 import { Route } from './interfaces/route';
 import Callback from './stores/Callback';
 import Artefact from './pages/Artefact';
+import Artefacts from './pages/Artefacts';
+import Basket from './pages/Basket';
 
 export const routes: Array<Route> = [
     {
         place: 'NavBar',
         key: 'home-route',
-        title: 'Home',
+        title: 'Catalog',
         path: '/',
         enabled: true,
-        component: Callback
+        component: Artefacts
     },
     {
         place: 'NavBar',
@@ -22,10 +24,10 @@ export const routes: Array<Route> = [
     {
         place: 'UserMenu',
         key: 'info-user',
-        title: 'User Info',
-        path: '/user/:id',
-        enabled: false,
-        component: Callback
+        title: 'Basket',
+        path: '/basket',
+        enabled: true,
+        component: Basket
     },
     {
         place: 'void',

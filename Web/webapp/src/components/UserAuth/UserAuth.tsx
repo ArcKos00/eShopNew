@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
     Avatar,
     Link,
@@ -11,7 +11,7 @@ import {
 import { AppStoreContext } from '../../App';
 import ExitToApp from '@mui/icons-material/ExitToApp';
 import { routes } from '../../routes';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 const UserAuth = () => {

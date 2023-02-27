@@ -2,25 +2,29 @@ import apiClient from '../client';
 
 const url = "http://www.alevelwebsite.com:5000/api/v1/catalogbff"
 
-export const getitemById = (id: number) => apiClient({
+export const getItem = (id: number) => apiClient({
     path: `${url}/item`,
     method: 'POST',
     data: { id: id }
 });
 
-export const getUserByPage = (page: number) => apiClient({
-    path: `users?page=${page}`,
-    method: 'GET'
-});
-
-export const updateUser = ({ id, name, job }: { id: number, name: string, job: string }) => apiClient({
-    path: `users/${id}`,
-    method: 'PUT',
-    data: { id, name, job }
-});
-
-export const createUser = ({ name, job }: { name: string, job: string }) => apiClient({
-    path: `users`,
+export const getItems = (pageIndex: number, pageSize: number, filter: object) => apiClient({
+    path: `${url}/items`,
     method: 'POST',
-    data: { name, job }
+    data: { pageIndex, pageSize, filter }
+});
+
+export const getAnomalies = () => apiClient({
+    path: `${url}/getanomalies`,
+    method: 'POST'
+});
+
+export const getMeets = () => apiClient({
+    path: `${url}/getmeets`,
+    method: 'POST'
+});
+
+export const getTypes = () => apiClient({
+    path: `${url}/gettypes`,
+    method: 'POST'
 });

@@ -10,7 +10,7 @@
                 _next = next;
             }
 
-            public long RateLimit { get; set; } = 10;
+            public long RateLimit { get; set; } = 1000;
 
             public async Task InvokeAsync(HttpContext context)
             {

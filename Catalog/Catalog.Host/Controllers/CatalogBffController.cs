@@ -7,6 +7,7 @@ namespace Catalog.Host.Controllers
 {
     [ApiController]
     [Scope("catalog.api.catalogbff")]
+    [AllowAnonymous]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase
@@ -32,11 +33,18 @@ namespace Catalog.Host.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(Artefact), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Item(BaseRequest request)
         {
             var result = await _service.Get(request.Id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Artefact), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetFullItem(BaseRequest request)
+        {
+            var result = await _service.GetWithContent(request.Id);
             return Ok(result);
         }
 

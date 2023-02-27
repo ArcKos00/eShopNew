@@ -33,53 +33,53 @@ services:
         ports:
             - 5000:5000
 
-    #basket.api:
-    #    container_name: lde.basket.api
-    #    build:
-    #        context: .
-    #        dockerfile: Basket/Basket.Host/Dockerfile
-    #    environment: 
-    #        - ASPNETCORE_ENVIRONMENT=Development
-    #        - ASPNETCORE_URLS=http://+:5003
-    #        - OrderApi=http://www.alevelwebsite.com:5004/api/v1F
-    #        - BasePath=http://www.alevelwebsite.com:5003
-    #        - Authorization__Authority=http://www.alevelwebsite.com:5002
-    #        - RedisConfig__Host=www.alevelwebsite.com:6380
-    #        - RedisConfig__CacheTimeout=02:00:00
-    #    depends_on:
-    #        - redis
-    #        - identityserver
-    #        - order.api
-    #        - catalog.api
-    #    ports:
-    #        - 5003:5003
+    basket.api:
+        container_name: lde.basket.api
+        build:
+            context: .
+            dockerfile: Basket/Basket.Host/Dockerfile
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:5003
+            - OrderApi=http://www.alevelwebsite.com:5004/api/v1F
+            - BasePath=http://www.alevelwebsite.com:5003
+            - Authorization__Authority=http://www.alevelwebsite.com:5002
+            - RedisConfig__Host=www.alevelwebsite.com:6380
+            - RedisConfig__CacheTimeout=02:00:00
+        depends_on:
+            - redis
+            - identityserver
+            - order.api
+            - catalog.api
+        ports:
+            - 5003:5003
 
-    #order.api:
-    #    container_name: lde.order.api
-    #    build:
-    #        context: .
-    #        dockerfile: Order/Order.Host/Dockerfile
+    order.api:
+        container_name: lde.order.api
+        build:
+            context: .
+            dockerfile: Order/Order.Host/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:5004
+            - ConnectionString=server=www.alevelwebsite.com;port=5433;database=order;uid=postgres;password=postgres;
+            - BasePath=http://www.alevelwebsite.com:5004
+            - Authorization__Authority=http://www.alevelwebsite.com:5002
+        depends_on:
+            - identityserver
+            - postgres
+        ports:
+            - 5004:5004
+
+    #web.client:
+    #    container_name: lde.web.client
+    #    build: 
+    #        context: ./Web/webapp
+    #        dockerfile: Dockerfile
     #    environment:
-    #        - ASPNETCORE_ENVIRONMENT=Development
-    #        - ASPNETCORE_URLS=http://+:5004
-    #        - ConnectionString=server=www.alevelwebsite.com;port=5433;database=order;uid=postgres;password=postgres;
-    #        - BasePath=http://www.alevelwebsite.com:5004
-    #        - Authorization__Authority=http://www.alevelwebsite.com:5002
-    #    depends_on:
-    #        - identityserver
-    #        - postgres
+    #        - NODE_ENV=Development
     #    ports:
-    #        - 5004:5004
-
-    ##web.client:
-    ##    container_name: lde.web.client
-    ##    build: 
-    ##        context: ./Web/webapp
-    ##        dockerfile: Dockerfile
-    ##    environment:
-    ##        - NODE_ENV=Development
-    ##    ports:
-    ##        - 3001:3000
+    #        - 3001:3000
 
     postgres:
         container_name: lde.postgres
@@ -100,14 +100,14 @@ services:
     #    ports:
     #        - 8001:80
 
-    #nginx:
-    #    container_name: lde.nginx
-    #    image: nginx
-    #    ports:
-    #        - 80:80
-    #    volumes:
-    #        - ./Proxy/gateway/nginx/conf.d:/etc/nginx/conf.d
-    #        - ./Proxy/assets:/var/www/assets
+    nginx:
+        container_name: lde.nginx
+        image: nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./Proxy/gateway/nginx/conf.d:/etc/nginx/conf.d
+            - ./Proxy/assets:/var/www/assets
 
     redis:
         container_name: lde.redis
