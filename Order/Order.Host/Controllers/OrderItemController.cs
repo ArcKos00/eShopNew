@@ -38,7 +38,7 @@ namespace Order.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Delete(ItemIdRequest request)
         {
             var result = await _service.Delete(request.Id);

@@ -314,5 +314,33 @@ namespace Basket.UnitTests.Services
                     It.IsAny<Exception>(),
                     It.IsAny<Func<It.IsAnyType, Exception, string>>()!), Times.Once);
         }
+
+        [Fact]
+        public async Task ClearBasket_Succesful()
+        {
+            // arrange
+            var testResult = true;
+            _cache.Setup(s => s.Remove(It.IsAny<string>())).ReturnsAsync(testResult);
+
+            // act
+            var result = await _service.Clear(It.IsAny<string>());
+
+            // assert
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task ClearBasket_Failed()
+        {
+            // arrange
+            var testResult = false;
+            _cache.Setup(s => s.Remove(It.IsAny<string>())).ReturnsAsync(testResult);
+
+            // act
+            var result = await _service.Clear(It.IsAny<string>());
+
+            // assert
+            result.Should().BeFalse();
+        }
     }
 }

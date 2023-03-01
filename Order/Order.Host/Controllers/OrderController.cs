@@ -1,4 +1,5 @@
 ﻿using Order.Host.Models.Dto;
+using Order.Host.Models.Response;
 using Order.Host.Models.Request;
 using Order.Host.Models.Request.Add;
 using Order.Host.Models.Request.Update;
@@ -31,7 +32,7 @@ namespace Order.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Delete(ItemIdRequest request)
         {
             await _service.Delete(request.Id);
@@ -47,7 +48,7 @@ namespace Order.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UserOrders<Orders>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetUserOrders(PaginatedUserOrdersRequest request)
         {
             var result = await _service.GetUserOrders(request.UserId, request.PageIndex, request.PageSize);
@@ -55,11 +56,11 @@ namespace Order.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateStatus(UpdateStatusRequest request)
         {
-            await _service.UpdateStatus(request.Id, request.Status);
-            return Ok();
+            var result = await _service.UpdateStatus(request.Id, request.Status);
+            return Ok(result);
         }
     }
 }

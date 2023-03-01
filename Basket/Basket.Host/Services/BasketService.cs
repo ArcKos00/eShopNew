@@ -24,7 +24,7 @@ namespace Basket.Host.Services
             _config = options.Value;
         }
 
-        public async Task AddToBasket(string userId, int itemId, string name, decimal cost)
+        public async Task<bool> AddToBasket(string userId, int itemId, string name, decimal cost)
         {
             var result = await _cacheService.GetAsync<BasketModel>(userId);
             if (result == null)
@@ -39,47 +39,48 @@ namespace Basket.Host.Services
                 Name = name,
                 Cost = cost
             });
-            result.TotalCost = 0;
-            foreach (var item in result.BasketList)
-            {
-                result.TotalCost += item.Cost;
-            }
+
+            CalculationCost(ref result);
 
             await _cacheService.AddOrUpdateAsync(userId, result);
             _logger.LogInformation(LoggerDefaultResponse.SuccessfulUpdate);
+            return true;
         }
 
-        public async Task RemoveFromBasket(string userId, int itemId)
+        public async Task<bool> RemoveFromBasket(string userId, int itemId)
         {
             var basket = await _cacheService.GetAsync<BasketModel>(userId);
             if (basket == null)
             {
                 _logger.LogError($"Value with key: {userId} — {LoggerDefaultResponse.NotFound}");
-                return;
+                return false;
             }
 
             var basketItem = basket.BasketList.FirstOrDefault(f => f.Id == itemId);
             if (basketItem == default)
             {
                 _logger.LogError($"Value with key: {userId} ItemId: {itemId} — {LoggerDefaultResponse.NotFound}");
-                return;
+                return false;
             }
 
             basket.BasketList.Remove(basketItem);
+            CalculationCost(ref basket);
+
             await _cacheService.AddOrUpdateAsync(userId, basket);
             _logger.LogInformation(LoggerDefaultResponse.SuccessfulDelete);
+            return true;
         }
 
-        public async Task MakeAnOrder(string userId)
+        public async Task<bool> MakeAnOrder(string userId)
         {
             var basket = await _cacheService.GetAsync<BasketModel>(userId);
             if (basket == null)
             {
                 _logger.LogError($"the Order was {LoggerDefaultResponse.NotFound}");
-                return;
+                return false;
             }
 
-            await _httpClient.SendAsync<object, BasketModel>(
+            await _httpClient.SendAsync<int?, BasketModel>(
                 $"{_config.OrderApi}/order/add",
                 HttpMethod.Post,
                 new UserBasket()
@@ -88,8 +89,9 @@ namespace Basket.Host.Services
                     BasketList = basket.BasketList
                 });
 
-            await RemoveCache(userId);
+            var result = await Clear(userId);
             _logger.LogInformation("the Сache has been cleared");
+            return result;
         }
 
         public async Task<BasketModel> GetBasket(string key)
@@ -98,15 +100,24 @@ namespace Basket.Host.Services
             if (result == null)
             {
                 _logger.LogError(LoggerDefaultResponse.NotFound);
-                result = new BasketModel();
+                return new BasketModel();
             }
 
             return result;
         }
 
-        private async Task RemoveCache(string userId)
+        public async Task<bool> Clear(string userId)
         {
-            await _cacheService.Remove(userId);
+            return await _cacheService.Remove(userId);
+        }
+
+        private void CalculationCost(ref BasketModel basket)
+        {
+            basket.TotalCost = 0;
+            foreach (var item in basket.BasketList)
+            {
+                basket.TotalCost += item.Cost;
+            }
         }
     }
 }

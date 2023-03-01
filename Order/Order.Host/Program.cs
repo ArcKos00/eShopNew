@@ -50,7 +50,6 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.AddConfiguration();
-
 builder.Services.Configure<Config>(configurations);
 
 builder.Services.AddAuthorization(configurations);

@@ -3,6 +3,7 @@ import Callback from './stores/Callback';
 import Artefact from './pages/Artefact';
 import Artefacts from './pages/Artefacts';
 import Basket from './pages/Basket';
+import Orders from './pages/Orders/Orders';
 
 export const routes: Array<Route> = [
     {
@@ -22,7 +23,7 @@ export const routes: Array<Route> = [
         component: Artefact
     },
     {
-        place: 'UserMenu',
+        place: 'NavBar',
         key: 'info-user',
         title: 'Basket',
         path: '/basket',
@@ -36,5 +37,13 @@ export const routes: Array<Route> = [
         path: '/callback',
         enabled: false,
         component: Callback
+    },
+    {
+        place: 'UserMenu',
+        key: 'order',
+        title: 'Orders',
+        path: '/order',
+        enabled: true,
+        component: Orders
     },
 ] 

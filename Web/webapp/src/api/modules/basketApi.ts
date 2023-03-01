@@ -8,7 +8,7 @@ export const add = (userId: string, id: number, name: string, cost: number) => a
     data: { userId, id, name, cost }
 });
 
-export const remove = (userId: string, id: Number) => apiClient({
+export const remove = (userId: string, id: number) => apiClient({
     path: `${url}/removefrombasket`,
     method: 'POST',
     data: { userId, id }
@@ -23,5 +23,11 @@ export const makeAnOrder = (userId: string) => apiClient({
 export const getBasket = (userId: string) => apiClient({
     path: `${url}/getbasket`,
     method: 'POST',
+    data: { userId }
+});
+
+export const clear = (userId: string) => apiClient({
+    path: `${url}/clearbasket`,
+    method: `POST`,
     data: { userId }
 });

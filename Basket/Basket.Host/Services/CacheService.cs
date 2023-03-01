@@ -23,7 +23,7 @@ namespace Basket.Host.Services
             _config = config.Value;
         }
 
-        public Task AddOrUpdateAsync<T>(string key, T value) => AddOrUpdateInternalAsync(key, value);
+        public Task<bool> AddOrUpdateAsync<T>(string key, T value) => AddOrUpdateInternalAsync(key, value);
 
         public async Task<T?> GetAsync<T>(string key)
         {
@@ -34,22 +34,22 @@ namespace Basket.Host.Services
             return serialized.HasValue ? _serializer.Deserialize<T>(serialized.ToString()) : default(T) !;
         }
 
-        public async Task Remove(string key)
+        public async Task<bool> Remove(string key)
         {
             var redis = GetRedisDatabase();
             var cacheKey = GetItemCacheKey(key);
-            await redis.KeyDeleteAsync(cacheKey);
+            return await redis.KeyDeleteAsync(cacheKey);
         }
 
-        private async Task AddOrUpdateInternalAsync<T>(string key, T value, IDatabase redis = null!, TimeSpan? expiry = null)
+        private async Task<bool> AddOrUpdateInternalAsync<T>(string key, T value, IDatabase redis = null!, TimeSpan? expiry = null)
         {
             redis = redis ?? GetRedisDatabase();
             expiry = expiry ?? _config.CacheTimeout;
 
             var cacheKey = GetItemCacheKey(key);
             var serialized = _serializer.Serialize(value);
-
-            if (await redis.StringSetAsync(cacheKey, serialized, expiry))
+            var result = await redis.StringSetAsync(cacheKey, serialized, expiry);
+            if (result)
             {
                 _logger.LogInformation($"{LoggerDefaultResponse.ValueCached}{cacheKey}");
             }
@@ -57,6 +57,8 @@ namespace Basket.Host.Services
             {
                 _logger.LogInformation($"{LoggerDefaultResponse.ValueUpdated}{cacheKey}");
             }
+
+            return result;
         }
 
         private string GetItemCacheKey(string key) => $"{key.GetHashCode()}{key}";

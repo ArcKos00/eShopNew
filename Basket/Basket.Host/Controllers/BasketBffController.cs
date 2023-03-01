@@ -23,27 +23,27 @@ namespace Basket.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> AddToBasket(WithItemIdRequest request)
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AddToBasket(WithItemRequest request)
         {
-            await _service.AddToBasket(request.UserId, request.Id, request.Name, request.Cost);
-            return Ok();
+            var result = await _service.AddToBasket(request.UserId, request.Id, request.Name, request.Cost);
+            return Ok(result);
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> RemoveFromBasket(WithItemIdRequest request)
         {
-            await _service.RemoveFromBasket(request.UserId, request.Id);
-            return Ok();
+            var result = await _service.RemoveFromBasket(request.UserId, request.Id);
+            return Ok(result);
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> MakeAnOrder(CacheRequest request)
         {
-            await _service.MakeAnOrder(request.UserId);
-            return Ok();
+            var result = await _service.MakeAnOrder(request.UserId);
+            return Ok(result);
         }
 
         [HttpPost]
@@ -51,6 +51,14 @@ namespace Basket.Host.Controllers
         public async Task<IActionResult> GetBasket(CacheRequest request)
         {
             var result = await _service.GetBasket(request.UserId);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ClearBasket(CacheRequest request)
+        {
+            var result = await _service.Clear(request.UserId);
             return Ok(result);
         }
     }

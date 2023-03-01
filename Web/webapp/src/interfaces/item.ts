@@ -1,5 +1,5 @@
-export interface IOrderItem {
-    id: number,
-    name: string,
-    cost: number
+export interface IItem {
+    "id": number,
+    "name": string,
+    "cost": number
 }

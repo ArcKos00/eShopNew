@@ -6,9 +6,9 @@ using Catalog.Host.Services.Interfaces;
 namespace Catalog.Host.Controllers
 {
     [ApiController]
-    [Scope("catalog.api.catalogbff")]
     [AllowAnonymous]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
+    [Scope("catalog.api.catalogbff")]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase
     {

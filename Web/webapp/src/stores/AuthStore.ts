@@ -9,9 +9,9 @@ const config = {
     response_type: 'code',
     scope: 'openid profile catalog.api.catalogbff basket.basketCache.api order.orderbff.api',
     post_logout_redirect_uri: `http://localhost:3000`,
-    useStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
     monitorSession: true,
+    response_mode: `fragment`,
     checkSessionInterval: 2000,
     silent_redirect_uri: `http://localhost:3000`,
     filterProtocolClaims: true,
@@ -38,7 +38,7 @@ class AuthStore {
     };
 
     login() {
-        this.oidc_client.signinRedirect();
+        this.oidc_client.signinRedirect({ state: { someState: "state" } });
     };
 
     logout() {

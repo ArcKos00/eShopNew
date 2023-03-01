@@ -2,8 +2,8 @@
 {
     public interface ICacheService
     {
-        public Task AddOrUpdateAsync<T>(string key, T value);
+        public Task<bool> AddOrUpdateAsync<T>(string key, T value);
         public Task<T?> GetAsync<T>(string key);
-        public Task Remove(string key);
+        public Task<bool> Remove(string key);
     }
 }

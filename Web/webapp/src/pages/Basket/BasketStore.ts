@@ -1,32 +1,31 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import * as basketApi from "../../api/modules/basketApi";
-import { IOrderItem } from "../../interfaces/item";
-import { AppStoreContext } from "../../App";
-import { useContext } from "react";
+import { IItem } from "../../interfaces/Item";
 
 class BasketStore {
-    basket: IOrderItem[] = [];
-    user = useContext(AppStoreContext).authStore.user;
+    basket: IItem[] = [];
     totalCost = 0;
     isLoading = false;
-    defaultUser = "Sidorovich"
+    userId = '';
 
     constructor() {
         makeAutoObservable(this);
-        runInAction(this.prefetchData)
+        runInAction(this.prefetchData);
+    }
+    private check = (userId: string | undefined) => {
+        if (userId) {
+            this.userId = userId;
+        }
+        else {
+            this.userId = "Sidorovich"
+        }
     }
 
     prefetchData = async () => {
         try {
             this.isLoading = true;
-            var userId: string;
-            if (!!this.user) {
-                userId = this.user?.profile.sub;
-            }
-            else {
-                userId = this.defaultUser;
-            }
-            const result = await basketApi.getBasket(userId);
+            this.check(this.userId);
+            const result = await basketApi.getBasket(this.userId);
             this.totalCost = result.totalCost;
             this.basket = result.basketList;
         }
@@ -39,18 +38,34 @@ class BasketStore {
     }
 
     async add(userId: string, id: number, name: string, cost: number) {
-        await basketApi.add(userId, id, name, cost);
-        await this.prefetchData();
+        this.check(userId)
+        await basketApi.add(this.userId, id, name, cost);
     }
 
     async remove(userId: string, id: number) {
-        await basketApi.remove(userId, id);
-        await this.prefetchData();
+        this.check(userId);
+        await basketApi.remove(this.userId, id);
+        this.prefetchData();
     }
 
     async makeAnOrder(userId: string) {
-        await basketApi.makeAnOrder(userId);
-        await this.prefetchData();
+        this.check(userId);
+        await basketApi.makeAnOrder(this.userId);
+        this.basket = [];
+        this.totalCost = 0;
+    }
+
+    async get(userId: string) {
+        this.check(userId);
+        const result = await basketApi.getBasket(this.userId);
+        this.totalCost = result.totalCost;
+        this.basket = result.basketList;
+    }
+
+    async clear(userId: string) {
+        this.check(userId);
+        await basketApi.clear(this.userId);
+        this.prefetchData()
     }
 }
 

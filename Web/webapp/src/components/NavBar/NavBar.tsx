@@ -15,6 +15,8 @@ import { NavLink } from 'react-router-dom';
 import UserAuth from '../UserAuth/UserAuth';
 import { observer } from 'mobx-react-lite';
 
+const siteLabel = 'Sidorovich\'s Bunker'
+
 const NavBar: FC = (): ReactElement => {
     const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -27,7 +29,7 @@ const NavBar: FC = (): ReactElement => {
     };
 
     return (
-        <Box alignContent='space-between' sx={{ width: '100%', height: 'auto', backgroundColor: '#424242', color:'white' }}>
+        <Box alignContent='space-between' sx={{ width: '100%', height: 'auto', backgroundColor: '#424242', color: 'white' }}>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -80,10 +82,10 @@ const NavBar: FC = (): ReactElement => {
                         </Menu>
                     </Box>
                     <Typography variant='h6' noWrap component='div' sx={{ justifyContent: 'center', flexGrow: 3, display: { xs: 'flex', md: 'none' } }}>
-                        Sidorovich's bunker
+                        {siteLabel}
                     </Typography>
                     <Typography variant='h5' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-                        Sidorovich's bunker
+                        {siteLabel}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '1rem' }}>
@@ -92,7 +94,7 @@ const NavBar: FC = (): ReactElement => {
                                     key={page.key}
                                     component={NavLink}
                                     to={page.path}
-                                    color='black'
+                                    color='white'
                                     underline='none'
                                     variant='button'
                                     sx={{

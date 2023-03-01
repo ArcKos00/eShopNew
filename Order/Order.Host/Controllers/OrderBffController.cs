@@ -7,8 +7,8 @@ using Order.Host.Models.Response;
 namespace Order.Host.Controllers
 {
     [ApiController]
-    [Scope("order.orderbff.api")]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
+    [Scope("order.orderbff.api")]
     [Route(ComponentDefaults.DefaultRoute)]
     public class OrderBffController : ControllerBase
     {
