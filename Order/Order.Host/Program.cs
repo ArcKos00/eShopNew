@@ -38,7 +38,6 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri($"{authority}/connect/token"),
                 Scopes = new Dictionary<string, string>()
                 {
-                    { "order.orderbff.api", "orderbffapi" },
                     { "order.order.api", "orderapi" },
                     { "order.orderitem.api", "orderitemapi" }
                 }

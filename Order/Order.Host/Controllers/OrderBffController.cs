@@ -1,14 +1,12 @@
 ﻿using Order.Host.Models.Dto;
-using Order.Host.Models.Request;
-using Order.Host.Models.Request.Add;
 using Order.Host.Models.Request.Update;
 using Order.Host.Models.Response;
 
 namespace Order.Host.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
-    [Scope("order.orderbff.api")]
     [Route(ComponentDefaults.DefaultRoute)]
     public class OrderBffController : ControllerBase
     {
@@ -25,9 +23,10 @@ namespace Order.Host.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(UserOrders<Orders>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetUserOrders(PaginatedUserOrdersRequest request)
+        public async Task<IActionResult> GetUserOrders(PaginatedRequest request)
         {
-            var result = await _service.GetUserOrders(request.UserId, request.PageIndex, request.PageSize);
+            var userSub = User.Claims.FirstOrDefault(f => f.Type == "sub")?.Value;
+            var result = await _service.GetUserOrders(userSub!, request.PageIndex, request.PageSize);
             return Ok(result);
         }
     }

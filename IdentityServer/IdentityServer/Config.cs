@@ -23,7 +23,7 @@ namespace IdentityServer
                 {
                     Scopes = new List<Scope>
                     {
-                        new Scope("mvc")
+                        new Scope("endUser")
                     },
                 },
                 new ApiResource("catalog")
@@ -36,7 +36,6 @@ namespace IdentityServer
                         new Scope("catalog.api.characteristic"),
                         new Scope("catalog.api.frequence"),
                         new Scope("catalog.api.location"),
-                        new Scope("catalog.api.catalogbff"),
                     },
                 },
                 new ApiResource("basket")
@@ -50,7 +49,6 @@ namespace IdentityServer
                 {
                     Scopes = new List<Scope>
                     {
-                        new Scope("order.orderbff.api"),
                         new Scope("order.order.api"),
                         new Scope("order.orderitem.api")
                     }
@@ -66,28 +64,20 @@ namespace IdentityServer
                 {
                     ClientId = "client_pkce",
                     ClientName = "React PKCE Client",
-                    ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code,
-                    AllowAccessTokensViaBrowser = true,
+                    ClientSecrets = {new Secret("secret".Sha256())},
                     RequireConsent = false,
                     RequirePkce = true,
 
                     RedirectUris = { $"{configuration["MvcUrl"]}/callback" },
                     PostLogoutRedirectUris = { $"{configuration["MvcUrl"]}" },
-                    AllowedCorsOrigins =
-                    {
-                        $"{configuration["MvcUrl"]}",
-                        "http://localhost:3000"
-                    },
+                    AllowedCorsOrigins = { $"{configuration["MvcUrl"]}", "http://localhost:3000" },
 
                     AllowedScopes =
                     {
-                        
                         "openid",
                         "profile",
-                        "catalog.api.catalogbff",
-                        "basket.basketCache.api",
-                        "order.orderbff.api"
+                        "endUser",
                     },
                 },
                 new Client
@@ -117,7 +107,6 @@ namespace IdentityServer
                         "catalog.api.characteristic",
                         "catalog.api.frequence",
                         "catalog.api.location",
-                        "catalog.api.catalogbff"
                     }
                 },
                 new Client
@@ -127,7 +116,7 @@ namespace IdentityServer
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
-                    }
+                    },
                 },
                 new Client
                 {
@@ -141,7 +130,6 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "basket.basketCache.api",
                         "order.order.api"
                     }
                 },
@@ -152,7 +140,7 @@ namespace IdentityServer
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
-                    }
+                    },
                 },
                 new Client
                 {
@@ -166,7 +154,6 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "order.orderbff.api",
                         "order.order.api",
                         "order.orderitem.api",
                     }

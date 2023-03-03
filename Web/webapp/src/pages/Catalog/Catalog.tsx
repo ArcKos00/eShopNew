@@ -7,7 +7,7 @@ import {
     Pagination,
     Typography
 } from '@mui/material';
-import ArtefactStore from './ArtefactStore';
+import ArtefactStore from './CatalogStore';
 import { observer } from 'mobx-react-lite';
 import ArtefactCard from '../components/ArtefactCard';
 

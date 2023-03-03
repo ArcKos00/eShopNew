@@ -1,7 +1,7 @@
 import { Route } from './interfaces/route';
 import Callback from './stores/Callback';
 import Artefact from './pages/Artefact';
-import Artefacts from './pages/Artefacts';
+import Artefacts from './pages/Catalog';
 import Basket from './pages/Basket';
 import Orders from './pages/Orders/Orders';
 

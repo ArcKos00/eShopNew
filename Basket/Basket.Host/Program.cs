@@ -36,7 +36,6 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri($"{authority}/connect/token"),
                 Scopes = new Dictionary<string, string>()
                 {
-                    { "basket.basketCache.api", "basketApi" },
                     { "order.order.api", "orderApi" }
                 }
             }

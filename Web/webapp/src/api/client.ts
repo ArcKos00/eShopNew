@@ -1,5 +1,3 @@
-
-
 const handlerResponse = async (response: Response) => {
     if (!response.ok) {
         const message = await response.json();
@@ -11,7 +9,7 @@ const handlerResponse = async (response: Response) => {
 const apiClient = async ({ path, method, data }: apiClientPrors) => {
     const requestOptions = {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: !!data ? JSON.stringify(data) : undefined
     };
     return await fetch(`${path}`, requestOptions).then(handlerResponse);
@@ -21,6 +19,7 @@ interface apiClientPrors {
     path: string
     method: string
     data?: any
+    token?: string
 };
 
 export default apiClient;

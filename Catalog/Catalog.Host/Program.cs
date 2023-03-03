@@ -45,7 +45,6 @@ builder.Services.AddSwaggerGen(options =>
                     { "catalog.api.characteristic", "characteristic" },
                     { "catalog.api.frequence", "frequence" },
                     { "catalog.api.location", "location" },
-                    { "catalog.api.catalogbff", "catalogbff" }
                 }
             }
         }

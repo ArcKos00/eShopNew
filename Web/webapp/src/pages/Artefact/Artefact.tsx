@@ -18,7 +18,6 @@ import { observer } from 'mobx-react-lite';
 import BasketStore from '../Basket/BasketStore';
 
 const Artefact: FC<any> = (): ReactElement => {
-    const app = useContext(AppStoreContext);
     const basketStore = new BasketStore();
     const [artefact, setArtefact] = useState<IArtefact | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -44,7 +43,7 @@ const Artefact: FC<any> = (): ReactElement => {
     }, [id])
 
     const addToBasket = async () => {
-        await basketStore.add(app.authStore.user?.profile.sub!, artefact?.id!, artefact?.name!, artefact?.cost!);
+        await basketStore.add(artefact?.id!, artefact?.name!, artefact?.cost!);
     }
 
     return (

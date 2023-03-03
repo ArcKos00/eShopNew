@@ -8,7 +8,6 @@ namespace Basket.Host.Controllers
     [AllowAnonymous]
     [Route(ComponentDefaults.DefaultRoute)]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
-    [Scope("basket.basketCache.api")]
     public class BasketBffController : ControllerBase
     {
         private readonly IBasketService _service;
@@ -26,7 +25,9 @@ namespace Basket.Host.Controllers
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> AddToBasket(WithItemRequest request)
         {
-            var result = await _service.AddToBasket(request.UserId, request.Id, request.Name, request.Cost);
+            var userSub = User.Claims.FirstOrDefault(f => f.Type == "sub")?.Value ?? "babka";
+            _logger.LogInformation(userSub);
+            var result = await _service.AddToBasket(userSub!, request.Id, request.Name, request.Cost);
             return Ok(result);
         }
 
@@ -34,31 +35,39 @@ namespace Basket.Host.Controllers
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> RemoveFromBasket(WithItemIdRequest request)
         {
-            var result = await _service.RemoveFromBasket(request.UserId, request.Id);
+            var userSub = User.Claims.FirstOrDefault(f => f.Type == "sub")?.Value ?? "babka";
+            _logger.LogInformation(userSub);
+            var result = await _service.RemoveFromBasket(userSub!, request.Id);
             return Ok(result);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> MakeAnOrder(CacheRequest request)
+        public async Task<IActionResult> MakeAnOrder()
         {
-            var result = await _service.MakeAnOrder(request.UserId);
+            var userSub = User.Claims.FirstOrDefault(f => f.Type == "sub")?.Value ?? "babka";
+            _logger.LogInformation(userSub);
+            var result = await _service.MakeAnOrder(userSub!);
             return Ok(result);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(BasketModel), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetBasket(CacheRequest request)
+        public async Task<IActionResult> GetBasket()
         {
-            var result = await _service.GetBasket(request.UserId);
+            var userSub = User.Claims.FirstOrDefault(f => f.Type == "sub")?.Value ?? "babka";
+            _logger.LogInformation(userSub);
+            var result = await _service.GetBasket(userSub!);
             return Ok(result);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> ClearBasket(CacheRequest request)
+        public async Task<IActionResult> ClearBasket()
         {
-            var result = await _service.Clear(request.UserId);
+            var userSub = User.Claims.FirstOrDefault(f => f.Type == "sub")?.Value ?? "babka";
+            _logger.LogInformation(userSub);
+            var result = await _service.Clear(userSub!);
             return Ok(result);
         }
     }

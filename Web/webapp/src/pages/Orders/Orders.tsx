@@ -5,28 +5,23 @@ import {
     Container,
     Grid,
     List,
-    ListItem,
     ListItemText,
-    IconButton,
     Pagination,
-    Typography,
     Divider,
     Accordion,
     AccordionSummary,
     AccordionDetails,
 } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { FC, ReactElement, useContext, useEffect } from "react";
-import { AppStoreContext } from "../../App";
+import { FC, ReactElement, useEffect } from "react";
 import OrdersStore from "./OrdersStore";
 
 
 const store = new OrdersStore();
 
 const Orders: FC<any> = (): ReactElement => {
-    const app = useContext(AppStoreContext);
     useEffect(() => {
-        store.getOrders(app.authStore.user?.profile.sub!)
+        store.getOrders()
     }, [])
 
     return (
@@ -42,9 +37,13 @@ const Orders: FC<any> = (): ReactElement => {
                 {store.isLoading ? (
                     <CircularProgress />
                 ) : (
-                    <List sx={{ width: '100%', height: '80%', overflow: 'auto' }}>
-                        {store.orders?.map((item) => (
-                            <>
+                    <>
+                        <Pagination
+                            count={store.countPage}
+                            page={store.currentPage}
+                            onChange={async (event, page) => await store.changePage(page)} />
+                        <List sx={{ width: '100%', height: '80%', overflow: 'auto' }}>
+                            {store.orders?.map((item) => (
                                 <Accordion>
                                     <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
                                         <Grid container justifyContent='space-between' direction="row">
@@ -63,11 +62,11 @@ const Orders: FC<any> = (): ReactElement => {
                                     <AccordionDetails>
                                         <ListItemText primary="Details for item 1" />
                                     </AccordionDetails>
+                                    <Divider />
                                 </Accordion>
-                                <Divider />
-                            </>
-                        ))}
-                    </List>
+                            ))}
+                        </List>
+                    </>
                 )}
             </Container>
         </Box >

@@ -2,32 +2,29 @@ import apiClient from '../client';
 
 const url = "http://www.alevelwebsite.com:5003/api/v1/basketbff"
 
-export const add = (userId: string, id: number, name: string, cost: number) => apiClient({
+export const add = (id: number, name: string, cost: number) => apiClient({
     path: `${url}/addtobasket`,
     method: 'POST',
-    data: { userId, id, name, cost }
+    data: { id, name, cost }
 });
 
-export const remove = (userId: string, id: number) => apiClient({
+export const remove = ( id: number) => apiClient({
     path: `${url}/removefrombasket`,
     method: 'POST',
-    data: { userId, id }
+    data: { id }
 });
 
-export const makeAnOrder = (userId: string) => apiClient({
+export const makeAnOrder = () => apiClient({
     path: `${url}/makeanorder`,
     method: 'POST',
-    data: { userId }
 });
 
-export const getBasket = (userId: string) => apiClient({
+export const getBasket = () => apiClient({
     path: `${url}/getbasket`,
-    method: 'POST',
-    data: { userId }
+    method: 'POST'
 });
 
-export const clear = (userId: string) => apiClient({
+export const clear = () => apiClient({
     path: `${url}/clearbasket`,
-    method: `POST`,
-    data: { userId }
+    method: `POST`
 });

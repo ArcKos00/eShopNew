@@ -8,7 +8,6 @@ namespace Catalog.Host.Controllers
     [ApiController]
     [AllowAnonymous]
     [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
-    [Scope("catalog.api.catalogbff")]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase
     {

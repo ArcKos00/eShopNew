@@ -4,10 +4,9 @@ import { getItems } from '../../api/modules/orderApi'
 
 class OrdersStore {
     orders: IOrder[] = []
+    countPage = 0;
     currentPage = 1;
     pageSize = 50;
-    userId = '';
-    orderCount = 0;
     isLoading = false;
 
     constructor() {
@@ -15,18 +14,12 @@ class OrdersStore {
         runInAction(this.prefetchData);
     }
 
-    private check = (userId: string | undefined) => {
-        if (userId) {
-            this.userId = userId;
-        }
-    }
-
     prefetchData = async () => {
         try {
             this.isLoading = true;
-            const result = await getItems(this.userId, (this.currentPage - 1), this.pageSize)
-            this.orderCount = result.ordersCount;
+            const result = await getItems((this.currentPage - 1), this.pageSize)
             this.orders = result.orders;
+            this.countPage = Math.ceil(result.ordersCount / this.pageSize);
         }
         catch (e) {
             if (e instanceof Error) {
@@ -41,9 +34,9 @@ class OrdersStore {
         await this.prefetchData();
     }
 
-    async getOrders(userId: string) {
-        this.check(userId);
+    async getOrders() {
         await this.prefetchData();
+        console.log(this.orders)
     }
 }
 

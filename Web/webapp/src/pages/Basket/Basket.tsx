@@ -16,7 +16,7 @@ const store = new BasketStore();
 const Basket: FC<any> = (): ReactElement => {
     const app = useContext(AppStoreContext);
     useEffect(() => {
-        store.get(app.authStore.user?.profile.sub!);
+        store.get();
     }, [])
 
     return (
@@ -39,7 +39,7 @@ const Basket: FC<any> = (): ReactElement => {
                                     <ListItem
                                         secondaryAction={
                                             <IconButton onClick={() =>
-                                                store.remove(app.authStore.user?.profile.sub!, item.id)
+                                                store.remove(item.id)
                                             } edge="end" aria-label="delete">
                                                 <DeleteIcon />
                                             </IconButton>
@@ -71,12 +71,12 @@ const Basket: FC<any> = (): ReactElement => {
                         </Typography>
                         <Grid container justifyContent="end">
                             <Grid item>
-                                <Button variant="outlined" onClick={() => store.clear(app.authStore.user?.profile.sub!)}>
+                                <Button variant="outlined" onClick={() => store.clear()}>
                                     Clear Basket
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" onClick={() => store.makeAnOrder(app.authStore.user?.profile.sub!)}>
+                                <Button variant="contained" onClick={() => store.makeAnOrder()}>
                                     Create Order
                                 </Button>
                             </Grid>
