@@ -9,7 +9,7 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:5002
-            - MvcUrl=http://localhost:3000
+            - MvcUrl=http://www.alevelwebsite.com:5001
             - CatalogApi=http://www.alevelwebsite.com:5000
             - BasketApi=http://www.alevelwebsite.com:5003
             - OrderApi=http://www.alevelwebsite.com:5004
@@ -72,15 +72,15 @@ services:
         ports:
             - 5004:5004
 
-    #web.client:
-    #    container_name: lde.web.client
-    #    build: 
-    #        context: ./Web/webapp
-    #        dockerfile: Dockerfile
-    #    environment:
-    #        - NODE_ENV=Development
-    #    ports:
-    #        - 5001:3000
+    web.client:
+        container_name: lde.web.client
+        build: 
+            context: ./Web/webapp
+            dockerfile: Dockerfile
+        environment:
+            - NODE_ENV=Development
+        ports:
+            - 5001:3000
 
     postgres:
         container_name: lde.postgres
@@ -90,16 +90,16 @@ services:
         ports:
             - 5433:5432
 
-    #pgAdmin:
-    #    container_name: lde.pgAdmin
-    #    image: dpage/pgadmin4
-    #    environment:
-    #        PGADMIN_DEFAULT_EMAIL: user@domain.com
-    #        PGADMIN_DEFAULT_PASSWORD: postgres
-    #    depends_on:
-    #        - postgres
-    #    ports:
-    #        - 8001:80
+    pgAdmin:
+        container_name: lde.pgAdmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: user@domain.com
+            PGADMIN_DEFAULT_PASSWORD: postgres
+        depends_on:
+            - postgres
+        ports:
+            - 8001:80
 
     nginx:
         container_name: lde.nginx

@@ -71,7 +71,7 @@ namespace IdentityServer
 
                     RedirectUris = { $"{configuration["MvcUrl"]}/callback" },
                     PostLogoutRedirectUris = { $"{configuration["MvcUrl"]}" },
-                    AllowedCorsOrigins = { $"{configuration["MvcUrl"]}", "http://localhost:3000" },
+                    AllowedCorsOrigins = { $"{configuration["MvcUrl"]}" },
 
                     AllowedScopes =
                     {

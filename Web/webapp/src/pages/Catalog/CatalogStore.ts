@@ -7,16 +7,11 @@ class ArtefactStore {
     currentPage = 1;
     totalPages = 0;
     pageSize = 8;
-    filter: {
-        "Meets": number | null,
-        "Anomaly": number | null;
-        "Type": number | null;
-    }
+    filter: Record<string, number> = {};
     isLoading = false;
 
     constructor() {
         makeAutoObservable(this);
-        this.filter = null!;
         runInAction(this.prefetchData)
     };
 
@@ -31,17 +26,9 @@ class ArtefactStore {
         await this.prefetchData();
     }
 
-    async back() {
-        await this.prefetchData();
-    }
-
-    async makeFilter(filter: {
-        "Meets": number | null,
-        "Anomaly": number | null;
-        "Type": number | null;
-    }) {
+    async setFilter(filter: Record<string, number>) {
         this.filter = filter;
-        await this.prefetchData();
+        this.prefetchData();
     }
 
     prefetchData = async () => {
